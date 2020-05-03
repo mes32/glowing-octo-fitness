@@ -1,5 +1,4 @@
 import React from 'react';
-import '../src/styles/App.scss';
 
 import {
   HashRouter as Router,
