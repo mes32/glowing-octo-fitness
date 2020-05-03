@@ -1,15 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 
 function Navbar() {
+    const history = useHistory();
+
+    const handleClick = (target) => {
+        history.push(target);
+    }
+
     return (
-        <header>
-            <Link to="/about">About</Link>
-            <span> / </span>
-            <Link to="/login">Login</Link>
-            <span> / </span>
-            <Link to="/logout">Logout</Link>
-        </header>
+        <Menu>
+            <Menu.Item
+                name='about'
+                onClick={() => handleClick('/about')}
+            >
+                About
+            </Menu.Item>
+            <Menu.Item
+                name='login'
+                onClick={() => handleClick('/login')}
+            >
+                Login
+            </Menu.Item>
+            <Menu.Item
+                name='logout'
+                onClick={() => handleClick('/logout')}
+            >
+                Logout
+            </Menu.Item>
+        </Menu>
     );
 }
 
