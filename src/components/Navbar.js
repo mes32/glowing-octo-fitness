@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
+// import styled from 'styled-components';
 
 function Navbar() {
     const history = useHistory();
@@ -11,6 +12,7 @@ function Navbar() {
 
     return (
         <Menu>
+            <Menu.Item header>GlowingOcto</Menu.Item>
             <Menu.Item
                 name='about'
                 onClick={() => handleClick('/about')}
@@ -32,5 +34,9 @@ function Navbar() {
         </Menu>
     );
 }
+
+// const StyledMenu = styled.Menu`
+//     background-color: blue;
+// `;
 
 export default Navbar;
