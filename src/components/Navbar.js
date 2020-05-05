@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-// import styled from 'styled-components';
 
 function Navbar() {
     const history = useHistory();

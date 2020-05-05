@@ -1,22 +1,32 @@
 const express = require('express');
+require('dotenv').config();
 
-const app = express();
+const server = express();
+
+// Attach body parser
 const bodyParser = require('body-parser');
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 
-// Body parser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Attach session middleware
+const sessionMiddleware = require('./modules/session-middleware');
+server.use(sessionMiddleware);
 
-/* Routes */
+// Attach passport and initialize
+const passport = require('./strategies/user.strategy');
+server.use(passport.initialize());
+server.use(passport.session());
+
+// Configure Routes
 const userRouter = require('./routes/user.router');
 
-app.use('/api/user', userRouter);
+server.use('/api/user', userRouter);
 
 // Serve the static site files from build directory
-app.use(express.static('build'));
+server.use(express.static('build'));
 
 // Start the server listening on PORT = 5000
 const PORT = process.env.PORT || 5000;
-const server = app.listen(PORT, () => {
+const serverHandle = server.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 });

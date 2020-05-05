@@ -12,6 +12,7 @@ import AboutPage from './components/AboutPage';
 import LoginPage from './components/LoginPage';
 import LogoutPage from './components/LogoutPage';
 import Navbar from './components/Navbar';
+import RegistrationPage from './components/RegistrationPage';
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
           <Route
             exact path="/logout"
             component={LogoutPage}
+          />
+          <Route
+            exact path="/register"
+            component={RegistrationPage}
           />
         </Switch>
       </div>
