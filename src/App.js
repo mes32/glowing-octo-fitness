@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import {
   HashRouter as Router,
@@ -14,7 +15,12 @@ import LogoutPage from './components/LogoutPage';
 import Navbar from './components/Navbar';
 import RegistrationPage from './components/RegistrationPage';
 
-function App() {
+function App(props) {
+
+  useEffect(() => {
+    props.dispatch({ type: 'FETCH_USER' });
+  });
+
   return (
     <Router>
       <div className="App">
@@ -43,4 +49,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect()(App);
