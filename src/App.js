@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 import {
   HashRouter as Router,
@@ -7,7 +9,6 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom';
-// import { connect } from 'react-redux';
 
 import AboutPage from './components/AboutPage';
 import LoginPage from './components/LoginPage';
@@ -23,28 +24,30 @@ function App(props) {
 
   return (
     <Router>
-      <div className="App">
-        <Navbar />
-        <Switch>
-          <Redirect exact from="/" to="/about" />
-          <Route
-            exact path="/about"
-            component={AboutPage}
-          />
-          <Route
-            exact path="/login"
-            component={LoginPage}
-          />
-          <Route
-            exact path="/logout"
-            component={LogoutPage}
-          />
-          <Route
-            exact path="/register"
-            component={RegistrationPage}
-          />
-        </Switch>
-      </div>
+      <Navbar />
+      <Container>
+        <Row>
+          <Switch>
+            <Redirect exact from="/" to="/about" />
+            <Route
+              exact path="/about"
+              component={AboutPage}
+            />
+            <Route
+              exact path="/login"
+              component={LoginPage}
+            />
+            <Route
+              exact path="/logout"
+              component={LogoutPage}
+            />
+            <Route
+              exact path="/register"
+              component={RegistrationPage}
+            />
+          </Switch>
+        </Row>
+      </Container>
     </Router>
   );
 }

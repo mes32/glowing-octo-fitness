@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
-function Navbar() {
+function NavbarComponent() {
     const history = useHistory();
 
     const handleClick = (target) => {
@@ -10,32 +11,15 @@ function Navbar() {
     }
 
     return (
-        <Menu>
-            <Menu.Item header>GlowingOcto</Menu.Item>
-            <Menu.Item
-                name='about'
-                onClick={() => handleClick('/about')}
-            >
-                About
-            </Menu.Item>
-            <Menu.Item
-                name='login'
-                onClick={() => handleClick('/login')}
-            >
-                Login
-            </Menu.Item>
-            <Menu.Item
-                name='logout'
-                onClick={() => handleClick('/logout')}
-            >
-                Logout
-            </Menu.Item>
-        </Menu>
+        <Navbar bg="dark" variant="dark">
+            <Navbar.Brand onClick={() => handleClick('/about')}>Glowing Octo</Navbar.Brand>
+            <Nav className="mr-auto">
+                <Nav.Link onClick={() => handleClick('/about')}>About</Nav.Link>
+                <Nav.Link onClick={() => handleClick('/login')}>Login</Nav.Link>
+                <Nav.Link onClick={() => handleClick('/logout')}>Logout</Nav.Link>
+            </Nav>
+        </Navbar>
     );
 }
 
-// const StyledMenu = styled.Menu`
-//     background-color: blue;
-// `;
-
-export default Navbar;
+export default NavbarComponent;
