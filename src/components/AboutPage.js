@@ -2,10 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 function AboutPage(props) {
+    const displayName = () => {
+        if (props.user.displayName) {
+            return (<p>Welcome {props.user.displayName}</p>);
+        } else if (props.user.username) {
+            return (<p>Welcome {props.user.username}</p>);
+        }
+    };
+
     return (
         <div>
             <h1>About Page</h1>
-            {props.user && (<p>Welcome {props.user.display_name}</p>)}
+            {displayName()}
             <p>Fitness tracker</p>
         </div>
     );

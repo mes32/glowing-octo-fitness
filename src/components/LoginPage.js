@@ -1,89 +1,68 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-class LoginPage extends Component {
-    state = {
-        username: '',
-        password: '',
-    };
+function LoginPage(props) {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    login = (event) => {
+    const login = (event) => {
         event.preventDefault();
-        if (this.state.username && this.state.password) {
-            this.props.dispatch({
+        if (username && password) {
+            props.dispatch({
                 type: 'LOGIN',
                 payload: {
-                    username: this.state.username,
-                    password: this.state.password,
+                    username: username,
+                    password: password,
                 },
             });
         } else {
-            this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
+            props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
         }
     }
 
-    handleInputChangeFor = propertyName => (event) => {
-        this.setState({
-            [propertyName]: event.target.value,
-        });
+    const handleInputChange = (event) => {
+        if (event.target.name === 'username') {
+            setUsername(event.target.value);
+        } else if (event.target.name === 'password') {
+            setPassword(event.target.value);
+        }
     }
 
-    render() {
-        return (
-            <div>
-                {this.props.errors.loginMessage && (
-                    <h2
-                        className="alert"
-                        role="alert"
-                    >
-                        {this.props.errors.loginMessage}
-                    </h2>
-                )}
-                <form onSubmit={this.login}>
-                    <h1>Login</h1>
-                    <div>
-                        <label htmlFor="username">
-                            Username:
-                            <input
-                                type="text"
-                                name="username"
-                                value={this.state.username}
-                                onChange={this.handleInputChangeFor('username')}
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <label htmlFor="password">
-                            Password:
-                            <input
-                                type="password"
-                                name="password"
-                                value={this.state.password}
-                                onChange={this.handleInputChangeFor('password')}
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <input
-                            className="log-in"
-                            type="submit"
-                            name="submit"
-                            value="Log In"
-                        />
-                    </div>
-                </form>
-                <center>
-                    <button
-                        type="button"
-                        className="link-button"
-                        onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}
-                    >
-                        Register
-                    </button>
-                </center>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <h1>Login</h1>
+            {props.errors.loginMessage && (
+                <h2 className="alert" role="alert" >
+                    {props.errors.loginMessage}
+                </h2>
+            )}
+            <Form>     
+                <Form.Group controlId="formUsername">
+                    <Form.Label>Username:</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Username"
+                        name="username"
+                        value={username}
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Form.Group controlId="formPassword">
+                    <Form.Label>Password:</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={password}
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Button onClick={login} variant="primary" type="submit">Login</Button>
+            </Form>
+        </div>
+    );
 }
 
 const mapStateToProps = state => ({

@@ -9,11 +9,15 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
     pool.query('SELECT * FROM app_user WHERE id = $1;', [id]).then((result) => {
-        const user = result && result.rows && result.rows[0];
+        const userRow = result && result.rows && result.rows[0];
+        const user = {
+            username: userRow.username,
+            displayName: userRow.display_name
+        };
         if (!user) {
             done(null, false, { message: 'Incorrect credentials.' });
         } else {
-            delete user.password; // remove password so it doesn't get sent
+            // delete user.password; // remove password so it doesn't get sent
             done(null, user);
         }
     }).catch((err) => {
