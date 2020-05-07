@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
@@ -27,25 +28,27 @@ function App(props) {
       <Navbar />
       <Container>
         <Row>
-          <Switch>
-            <Redirect exact from="/" to="/about" />
-            <Route
-              exact path="/about"
-              component={AboutPage}
-            />
-            <Route
-              exact path="/login"
-              component={LoginPage}
-            />
-            <Route
-              exact path="/logout"
-              component={LogoutPage}
-            />
-            <Route
-              exact path="/register"
-              component={RegistrationPage}
-            />
-          </Switch>
+          <Col xs={4}>
+            <Switch>
+              <Redirect exact from="/" to="/about" />
+              <Route
+                exact path="/about"
+                component={AboutPage}
+              />
+              <Route
+                exact path="/login"
+                component={LoginPage}
+              />
+              <Route
+                exact path="/logout"
+                component={LogoutPage}
+              />
+              <Route
+                exact path="/register"
+                component={RegistrationPage}
+              />
+            </Switch>
+          </Col>
         </Row>
       </Container>
     </Router>

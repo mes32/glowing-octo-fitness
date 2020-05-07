@@ -1,96 +1,88 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-class RegisterPage extends Component {
-    state = {
-        username: '',
-        password: '',
-        displayName: ''
-    };
+const DEFAULT_STATE = {
+    username: '',
+    password: '',
+    displayName: ''
+};
 
-    registerUser = (event) => {
+function RegisterPage(props) {
+    const [state, setState] = useState(DEFAULT_STATE);
+
+    const registerUser = (event) => {
         event.preventDefault();
 
-        if (this.state.username && this.state.password) {
-            this.props.dispatch({
+        if (state.username && state.displayName && state.password) {
+            props.dispatch({
                 type: 'REGISTER',
                 payload: {
-                    username: this.state.username,
-                    password: this.state.password,
-                    displayName: this.state.displayName
-                },
+                    username: state.username,
+                    password: state.password,
+                    displayName: state.displayName
+                }
             });
         } else {
-            this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
+            props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
         }
     }
 
-    handleInputChangeFor = propertyName => (event) => {
-        this.setState({
-            [propertyName]: event.target.value,
+    const handleInputChange = (event) => {
+        setState({
+            ...state,
+            [event.target.name]: event.target.value,
         });
     }
 
-    render() {
-        return (
-            <div>
-                {this.props.errors.registrationMessage && (
-                    <h2
-                        className="alert"
-                        role="alert"
-                    >
-                        {this.props.errors.registrationMessage}
-                    </h2>
-                )}
-                <form onSubmit={this.registerUser}>
-                    <h1>Register User</h1>
-                    <div>
-                        <label htmlFor="username">
-                            Username:
-                            <input
-                                type="text"
-                                name="username"
-                                value={this.state.username}
-                                onChange={this.handleInputChangeFor('username')}
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <label htmlFor="password">
-                            Password:
-                            <input
-                                type="password"
-                                name="password"
-                                value={this.state.password}
-                                onChange={this.handleInputChangeFor('password')}
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <input
-                            className="register"
-                            type="submit"
-                            name="submit"
-                            value="Register"
-                        />
-                    </div>
-                </form>
-                <center>
-                    <button
-                        type="button"
-                        className="link-button"
-                        onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
-                    >
-                        Login
-                    </button>
-                </center>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <h1>Register User</h1>
+            {props.errors.registrationMessage && (
+                <h2 className="alert" role="alert">
+                    {props.errors.registrationMessage}
+                </h2>
+            )}
+            <Form>
+                <Form.Group controlId="formUsername">
+                    <Form.Label>Username:</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Username"
+                        name="username"
+                        value={state.username}
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Form.Group controlId="formDisplayName">
+                    <Form.Label>Display Name:</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Display Name"
+                        name="displayName"
+                        value={state.displayName}
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Form.Group controlId="formPassword">
+                    <Form.Label>Password:</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={state.password}
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Button onClick={registerUser} variant="primary" type="submit">Register User</Button>
+            </Form>
+        </div>
+    );
 }
 
 const mapStateToProps = state => ({
-    errors: state.errors,
+    errors: state.errors
 });
 
 export default connect(mapStateToProps)(RegisterPage);
