@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 function LoginPage(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
 
     const login = (event) => {
         event.preventDefault();
         if (username && password) {
             props.dispatch({
                 type: 'LOGIN',
-                payload: {
-                    username: username,
-                    password: password,
-                },
+                payload: { username, password, history }
             });
         } else {
             props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
