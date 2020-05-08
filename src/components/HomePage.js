@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-function AboutPage(props) {
+function HomePage(props) {
     const displayName = () => {
         if (props.user.displayName) {
             return (<p>Welcome {props.user.displayName}</p>);
@@ -12,7 +12,7 @@ function AboutPage(props) {
 
     return (
         <div>
-            <h1>About Page</h1>
+            <h1>Home Page</h1>
             {displayName()}
             <p>Fitness tracker</p>
         </div>
@@ -23,4 +23,4 @@ const mapStateToProps = state => ({
     user: state.user,
 });
 
-export default connect(mapStateToProps)(AboutPage);
+export default connect(mapStateToProps)(HomePage);

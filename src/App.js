@@ -11,7 +11,7 @@ import {
   Switch
 } from 'react-router-dom';
 
-import AboutPage from './components/AboutPage';
+import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import LogoutPage from './components/LogoutPage';
 import Navbar from './components/Navbar';
@@ -30,10 +30,10 @@ function App(props) {
         <Row>
           <Col xs={4}>
             <Switch>
-              <Redirect exact from="/" to="/about" />
+              <Redirect exact from="/" to="/home" />
               <Route
-                exact path="/about"
-                component={AboutPage}
+                exact path="/home"
+                component={HomePage}
               />
               <Route
                 exact path="/login"
