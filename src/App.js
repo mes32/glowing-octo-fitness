@@ -16,6 +16,8 @@ import LoginPage from './components/LoginPage';
 import LogoutPage from './components/LogoutPage';
 import Navbar from './components/Navbar';
 import RegistrationPage from './components/RegistrationPage';
+import UserSettingsPage from './components/UserSettingsPage';
+import UserWorkoutsPage from './components/UserWorkoutsPage';
 
 function App(props) {
 
@@ -46,6 +48,14 @@ function App(props) {
               <Route
                 exact path="/register"
                 component={RegistrationPage}
+              />
+              <Route
+                exact path="/user/workouts"
+                component={UserWorkoutsPage}
+              />
+              <Route
+                exact path="/user/settings"
+                component={UserSettingsPage}
               />
             </Switch>
           </Col>

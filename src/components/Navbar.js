@@ -12,9 +12,10 @@ function NavbarComponent() {
 
     return (
         <Navbar bg="dark" variant="dark">
-            <Navbar.Brand onClick={() => handleClick('/about')}>Glowing Octo</Navbar.Brand>
+            <Navbar.Brand onClick={() => handleClick('/home')}>Glowing Octo</Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link onClick={() => handleClick('/about')}>About</Nav.Link>
+                <Nav.Link onClick={() => handleClick('/user/workouts')}>Workouts</Nav.Link>
+                <Nav.Link onClick={() => handleClick('/user/settings')}>Settings</Nav.Link>
                 <Nav.Link onClick={() => handleClick('/login')}>Login</Nav.Link>
                 <Nav.Link onClick={() => handleClick('/logout')}>Logout</Nav.Link>
             </Nav>
