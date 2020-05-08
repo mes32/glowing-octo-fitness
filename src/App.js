@@ -11,6 +11,8 @@ import {
   Switch
 } from 'react-router-dom';
 
+import ProtectedRoute from './modules/ProtectedRoute';
+
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import LogoutPage from './components/LogoutPage';
@@ -45,18 +47,19 @@ function App(props) {
                 exact path="/logout"
                 component={LogoutPage}
               />
-              <Route
+              <ProtectedRoute
                 exact path="/register"
                 component={RegistrationPage}
               />
-              <Route
+              <ProtectedRoute
                 exact path="/user/workouts"
                 component={UserWorkoutsPage}
               />
-              <Route
+              <ProtectedRoute
                 exact path="/user/settings"
                 component={UserSettingsPage}
               />
+              <Route render={() => <h1>404</h1>} />
             </Switch>
           </Col>
         </Row>
