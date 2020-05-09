@@ -5,8 +5,7 @@ import Form from 'react-bootstrap/Form';
 
 const DEFAULT_STATE = {
     username: '',
-    password: '',
-    displayName: ''
+    password: ''
 };
 
 function RegisterPage(props) {
@@ -15,13 +14,12 @@ function RegisterPage(props) {
     const registerUser = (event) => {
         event.preventDefault();
 
-        if (state.username && state.displayName && state.password) {
+        if (state.username && state.password) {
             props.dispatch({
                 type: 'REGISTER',
                 payload: {
                     username: state.username,
-                    password: state.password,
-                    displayName: state.displayName
+                    password: state.password
                 }
             });
         } else {
@@ -52,16 +50,6 @@ function RegisterPage(props) {
                         placeholder="Username"
                         name="username"
                         value={state.username}
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group controlId="formDisplayName">
-                    <Form.Label>Display Name:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Display Name"
-                        name="displayName"
-                        value={state.displayName}
                         onChange={handleInputChange}
                     />
                 </Form.Group>

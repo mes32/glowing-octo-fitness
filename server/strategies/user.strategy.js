@@ -12,7 +12,8 @@ passport.deserializeUser((id, done) => {
         const userRow = result && result.rows && result.rows[0];
         const user = {
             username: userRow.username,
-            displayName: userRow.display_name
+            displayName: userRow.display_name,
+            isAdmin: userRow.is_admin
         };
         if (!user) {
             done(null, false, { message: 'Incorrect credentials.' });
@@ -29,7 +30,8 @@ passport.deserializeUser((id, done) => {
 passport.use('local', new LocalStrategy({
     passReqToCallback: true,
     usernameField: 'username',
-}, ((req, username, password, done) => {
+}, ((req, usernameRaw, password, done) => {
+    const username = usernameRaw.toLowerCase();
     const queryText = 'SELECT * FROM app_user WHERE username = $1;';
     pool.query(queryText, [username]).then((result) => {
         const user = result && result.rows && result.rows[0];
