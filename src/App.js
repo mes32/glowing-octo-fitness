@@ -11,6 +11,7 @@ import {
   Switch
 } from 'react-router-dom';
 
+import AdminRoute from './modules/AdminRoute';
 import ProtectedRoute from './modules/ProtectedRoute';
 
 import HomePage from './components/HomePage';
@@ -47,7 +48,7 @@ function App(props) {
                 exact path="/logout"
                 component={LogoutPage}
               />
-              <ProtectedRoute
+              <AdminRoute
                 exact path="/register"
                 component={RegistrationPage}
               />
@@ -59,7 +60,7 @@ function App(props) {
                 exact path="/user/settings"
                 component={UserSettingsPage}
               />
-              <Route render={() => <h1>404</h1>} />
+              <Route render={() => <h1>404: Not Found</h1>} />
             </Switch>
           </Col>
         </Row>
