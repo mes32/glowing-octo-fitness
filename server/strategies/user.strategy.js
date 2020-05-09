@@ -11,6 +11,7 @@ passport.deserializeUser((id, done) => {
     pool.query('SELECT * FROM app_user WHERE id = $1;', [id]).then((result) => {
         const userRow = result && result.rows && result.rows[0];
         const user = {
+            id: userRow.id,
             username: userRow.username,
             displayName: userRow.display_name,
             isAdmin: userRow.is_admin

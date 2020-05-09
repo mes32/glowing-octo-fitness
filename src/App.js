@@ -22,6 +22,8 @@ import RegistrationPage from './components/RegistrationPage';
 import UserSettingsPage from './components/UserSettingsPage';
 import UserWorkoutsPage from './components/UserWorkoutsPage';
 
+import './styles/App.css';
+
 function App(props) {
 
   useEffect(() => {
@@ -33,7 +35,7 @@ function App(props) {
       <Navbar />
       <Container>
         <Row>
-          <Col xs={4}>
+          <Col xs={12}>
             <Switch>
               <Redirect exact from="/" to="/home" />
               <Route

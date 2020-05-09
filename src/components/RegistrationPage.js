@@ -13,7 +13,6 @@ function RegisterPage(props) {
 
     const registerUser = (event) => {
         event.preventDefault();
-
         if (state.username && state.password) {
             props.dispatch({
                 type: 'REGISTER',
@@ -42,7 +41,7 @@ function RegisterPage(props) {
                     {props.errors.registrationMessage}
                 </h2>
             )}
-            <Form>
+            <Form onSubmit={registerUser}>
                 <Form.Group controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
                     <Form.Control
@@ -63,7 +62,7 @@ function RegisterPage(props) {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-                <Button onClick={registerUser} variant="primary" type="submit">Register User</Button>
+                <Button type="submit" variant="primary">Register User</Button>
             </Form>
         </div>
     );
