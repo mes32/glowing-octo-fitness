@@ -5,7 +5,16 @@ export const ActionType = {
     REGISTER_USER: 'REGISTER_USER',
     SET_USER: 'SET_USER',
     UNSET_USER: 'UNSET_USER',
-    UPDATE_USER: 'UPDATE_USER'
+    UPDATE_USER: 'UPDATE_USER',
+
+    CLEAR_ALERTS: 'CLEAR_ALERTS',
+
+    LOGIN_FAILED: 'LOGIN_FAILED',
+    LOGIN_INPUT_ERROR: 'LOGIN_INPUT_ERROR',
+    LOGIN_NO_CODE: 'LOGIN_NO_CODE',
+
+    REGISTRATION_FAILED: 'REGISTRATION_FAILED',
+    REGISTRATION_INPUT_ERROR: 'REGISTRATION_INPUT_ERROR'
 }
 
 export const UserAction = {
@@ -18,9 +27,15 @@ export const UserAction = {
     update: (user) => ({ type: ActionType.UPDATE_USER, payload: user }),
 };
 
-// export const LoginError = {
-//     CLEAR: 'LOGIN_ERROR_CLEAR',
-//     INVALID_INPUT: 'LOGIN_ERROR_INVALID_INPUT',
-//     FAILED: 'LOGIN_ERROR_FAILED',
-//     NO_CODE: 'LOGIN_ERROR_NO_CODE'
-// };
+export const LoginError = {
+    clear: () => ({ type: ActionType.CLEAR_ALERTS }),
+    failed: () => ({ type: ActionType.LOGIN_FAILED }),
+    inputError: () => ({ type: ActionType.LOGIN_INPUT_ERROR }),
+    noCode: () => ({ type: ActionType.LOGIN_NO_CODE })
+};
+
+export const RegistrationError = {
+    clear: () => ({ type: ActionType.CLEAR_ALERTS }),
+    failed: () => ({ type: ActionType.REGISTRATION_FAILED }),
+    inputError: () => ({ type: ActionType.REGISTRATION_INPUT_ERROR })
+}

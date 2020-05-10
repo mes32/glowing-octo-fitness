@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { UserAction } from '../redux/actionTypes';
+import Alerts from './Alerts';
+import { UserAction, RegistrationError } from '../redux/actionTypes';
 
 const DEFAULT_STATE = {
     username: '',
@@ -22,7 +23,7 @@ function RegisterPage(props) {
         if (state.username && state.password) {
             props.dispatch(UserAction.register(userCredentials));
         } else {
-            props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
+            props.dispatch(RegistrationError.inputError());
         }
     }
 
@@ -36,11 +37,7 @@ function RegisterPage(props) {
     return (
         <div>
             <h1>Register User</h1>
-            {props.errors.registrationMessage && (
-                <h2 className="alert" role="alert">
-                    {props.errors.registrationMessage}
-                </h2>
-            )}
+            <Alerts error={props.error} />
             <Form onSubmit={registerUser}>
                 <Form.Group controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
@@ -69,7 +66,7 @@ function RegisterPage(props) {
 }
 
 const mapStateToProps = state => ({
-    errors: state.errors
+    error: state.errors.registrationPage
 });
 
 export default connect(mapStateToProps)(RegisterPage);

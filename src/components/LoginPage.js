@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { UserAction } from '../redux/actionTypes';
+import Alerts from './Alerts';
+import { UserAction, LoginError } from '../redux/actionTypes';
 
 function LoginPage(props) {
     const [username, setUsername] = useState('');
@@ -18,7 +19,7 @@ function LoginPage(props) {
                 UserAction.login({ username, password, history })
             );
         } else {
-            props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
+            props.dispatch(LoginError.inputError());
         }
     }
 
@@ -33,11 +34,7 @@ function LoginPage(props) {
     return (
         <div>
             <h1>Login</h1>
-            {props.errors.loginMessage && (
-                <h2 className="alert" role="alert" >
-                    {props.errors.loginMessage}
-                </h2>
-            )}
+            <Alerts error={props.error} />
             <Form>     
                 <Form.Group controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
@@ -66,7 +63,7 @@ function LoginPage(props) {
 }
 
 const mapStateToProps = state => ({
-    errors: state.errors,
+    error: state.errors.loginPage,
 });
 
 export default connect(mapStateToProps)(LoginPage);

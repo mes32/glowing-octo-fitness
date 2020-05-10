@@ -1,36 +1,36 @@
 import { combineReducers } from 'redux';
 
-// import { LoginError } from '../actionTypes';
+import { ActionType } from '../actionTypes';
 
-const loginMessage = (state = '', action) => {
+const loginPage = (state = '', action) => {
     switch (action.type) {
-        case 'CLEAR_LOGIN_ERROR':
+        case ActionType.CLEAR_ALERTS:
             return '';
-        case 'LOGIN_INPUT_ERROR':
-            return 'Enter your username and password!';
-        case 'LOGIN_FAILED':
-            return 'Oops! The username and password didn\'t match. Try again!';
-        case 'LOGIN_FAILED_NO_CODE':
-            return 'Oops! Something went wrong! Is the server running?';
+        case ActionType.LOGIN_INPUT_ERROR:
+            return 'Please enter your username and password';
+        case ActionType.LOGIN_FAILED:
+            return 'Username and password didn\'t match. Try again.';
+        case ActionType.LOGIN_NO_CODE:
+            return 'No response from server. Is the server running?';
         default:
             return state;
     }
 };
 
-const registrationMessage = (state = '', action) => {
+const registrationPage = (state = '', action) => {
     switch (action.type) {
-        case 'CLEAR_REGISTRATION_ERROR':
+        case ActionType.CLEAR_ALERTS:
             return '';
-        case 'REGISTRATION_INPUT_ERROR':
-            return 'Choose a username and password!';
-        case 'REGISTRATION_FAILED':
-            return 'Oops! That didn\'t work. The username might already be taken. Try again!';
+        case ActionType.REGISTRATION_INPUT_ERROR:
+            return 'Choose a username and password';
+        case ActionType.REGISTRATION_FAILED:
+            return 'That username might already be taken. Try a different one.';
         default:
             return state;
     }
 };
 
 export default combineReducers({
-    loginMessage,
-    registrationMessage,
+    loginPage,
+    registrationPage,
 });

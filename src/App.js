@@ -29,7 +29,6 @@ import './styles/App.css';
 function App(props) {
 
   useEffect(() => {
-    // props.dispatch(UserAction.fetch());
     props.dispatch(UserAction.fetch());
   });
 
