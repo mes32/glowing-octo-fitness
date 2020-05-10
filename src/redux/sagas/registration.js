@@ -1,6 +1,8 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+import { REGISTER } from '../actionTypes';
+
 function* registerUser(action) {
     try {
         yield put({ type: 'CLEAR_REGISTRATION_ERROR' });
@@ -13,7 +15,7 @@ function* registerUser(action) {
 }
 
 function* registrationSaga() {
-    yield takeLatest('REGISTER', registerUser);
+    yield takeLatest(REGISTER, registerUser);
 }
 
 export default registrationSaga;

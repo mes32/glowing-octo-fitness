@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
+import { LOGOUT } from '../redux/actionTypes';
+
 function NavbarComponent(props) {
     const history = useHistory();
 
@@ -15,18 +17,14 @@ function NavbarComponent(props) {
 
     const toggleAuthentication = () => {
         if (props.user) {
-            props.dispatch({ type: 'LOGOUT', payload: { history } });
+            props.dispatch({ type: LOGOUT, payload: { history } });
         } else {
             history.push('/login');
         }
     }
 
     const authenticationButtonText = () => {
-        if (props.user) {
-            return 'Logout';
-        } else {
-            return 'Login';
-        }
+        return props.user ? 'Logout' : 'Login';
     }
 
     return (

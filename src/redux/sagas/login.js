@@ -1,7 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+import { FETCH_USER, LOGIN, LOGOUT, UNSET_USER } from '../actionTypes';
+
 function* loginUser(action) {
+    console.log('loginUser');
     try {
         yield put({ type: 'CLEAR_LOGIN_ERROR' });
 
@@ -18,7 +21,7 @@ function* loginUser(action) {
         const history = action.payload.history;
 
         yield axios.post('api/user/login', credentials, config);
-        yield put({ type: 'FETCH_USER' });
+        yield put({ type: FETCH_USER });
         yield history.push('/user/workouts');
     } catch (error) {
         console.log('Error with user login:', error);
@@ -42,7 +45,7 @@ function* logoutUser(action) {
         const history = action.payload.history;
 
         yield axios.post('api/user/logout', config);
-        yield put({ type: 'UNSET_USER' });
+        yield put({ type: UNSET_USER });
         yield history.push('/logout');
     } catch (error) {
         console.log('Error with user logout:', error);
@@ -50,8 +53,8 @@ function* logoutUser(action) {
 }
 
 function* loginSaga() {
-    yield takeLatest('LOGIN', loginUser);
-    yield takeLatest('LOGOUT', logoutUser);
+    yield takeLatest(LOGIN, loginUser);
+    yield takeLatest(LOGOUT, logoutUser);
 }
 
 export default loginSaga;

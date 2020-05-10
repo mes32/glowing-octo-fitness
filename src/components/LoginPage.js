@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+import { LOGIN } from '../redux/actionTypes';
+
 function LoginPage(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -13,7 +15,7 @@ function LoginPage(props) {
         event.preventDefault();
         if (username && password) {
             props.dispatch({
-                type: 'LOGIN',
+                type: LOGIN,
                 payload: { username, password, history }
             });
         } else {

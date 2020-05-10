@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+// import { LoginError } from '../actionTypes';
+
 const loginMessage = (state = '', action) => {
     switch (action.type) {
         case 'CLEAR_LOGIN_ERROR':

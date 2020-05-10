@@ -22,12 +22,15 @@ import RegistrationPage from './components/RegistrationPage';
 import UserSettingsPage from './components/UserSettingsPage';
 import UserWorkoutsPage from './components/UserWorkoutsPage';
 
+import { FETCH_USER } from './redux/actionTypes';
+
 import './styles/App.css';
 
 function App(props) {
 
   useEffect(() => {
-    props.dispatch({ type: 'FETCH_USER' });
+    // props.dispatch(UserAction.fetch());
+    props.dispatch({ type: FETCH_USER });
   });
 
   return (
@@ -35,7 +38,7 @@ function App(props) {
       <Navbar />
       <Container>
         <Row>
-          <Col xs={12}>
+          <Col xs={12} md={6}>
             <Switch>
               <Redirect exact from="/" to="/home" />
               <Route
