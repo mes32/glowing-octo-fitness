@@ -1,21 +1,22 @@
-export const REGISTER = 'REGISTER';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const ActionType = {
+    FETCH_USER: 'FETCH_USER',
+    LOGIN_USER: 'LOGIN_USER',
+    LOGOUT_USER: 'LOGOUT_USER',
+    REGISTER_USER: 'REGISTER_USER',
+    SET_USER: 'SET_USER',
+    UNSET_USER: 'UNSET_USER',
+    UPDATE_USER: 'UPDATE_USER'
+}
 
-export const FETCH_USER = 'FETCH_USER';
-export const SET_USER = 'SET_USER';
-export const UNSET_USER = 'UNSET_USER';
-export const UPDATE_USER = 'UPDATE_USER';
-
-// export const ActionType = {
-//     FETCH_USER: 'FETCH_USER',
-//     SET_USER: 'SET_USER'
-// }
-
-// export const UserAction = {
-//     fetch: () => ({ type: ActionType.FETCH_USER }),
-//     setUser: (user) => ({ type: ActionType.SET_USER, payload: user })
-// };
+export const UserAction = {
+    fetch: () => ({ type: ActionType.FETCH_USER }),
+    login: (userCredentials) => ({ type: ActionType.LOGIN_USER, payload: userCredentials }),
+    logout: (history) => ({ type: ActionType.LOGOUT_USER, payload: history }),
+    register: (userCredentials) => ({ type: ActionType.REGISTER_USER, payload: userCredentials }),
+    setUser: (user) => ({ type: ActionType.SET_USER, payload: user }),
+    unset: () => ({ type: ActionType.UNSET_USER }),
+    update: (user) => ({ type: ActionType.UPDATE_USER, payload: user }),
+};
 
 // export const LoginError = {
 //     CLEAR: 'LOGIN_ERROR_CLEAR',

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
-import { FETCH_USER, SET_USER, UPDATE_USER } from '../actionTypes';
+import { ActionType, UserAction } from '../actionTypes';
 
 function* fetchUser() {
     try {
@@ -10,24 +10,87 @@ function* fetchUser() {
         };
 
         const response = yield axios.get('api/user', config);
-        yield put({ type: SET_USER, payload: response.data });
+        yield put(UserAction.setUser(response.data));
     } catch (error) {
         console.log('User get request failed', error);
+    }
+}
+
+function* loginUser(action) {
+    console.log('loginUser');
+    try {
+        yield put({ type: 'CLEAR_LOGIN_ERROR' });
+
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+        };
+
+        const credentials = {
+            username: action.payload.username,
+            password: action.payload.password
+        };
+
+        const history = action.payload.history;
+
+        yield axios.post('api/user/login', credentials, config);
+        yield put(UserAction.fetch());
+        yield history.push('/user/workouts');
+    } catch (error) {
+        console.log('Error with user login:', error);
+        if (error.response.status === 401) {
+            yield put({ type: 'LOGIN_FAILED' });
+        } else {
+            yield put({ type: 'LOGIN_FAILED_NO_CODE' });
+        }
+    }
+}
+
+function* logoutUser(action) {
+    try {
+        yield put({ type: 'CLEAR_LOGIN_ERROR' });
+
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+        };
+
+        const history = action.payload;
+
+        yield axios.post('api/user/logout', config);
+        yield put(UserAction.unset());
+        yield history.push('/logout');
+    } catch (error) {
+        console.log('Error with user logout:', error);
+    }
+}
+
+function* registerUser(action) {
+    try {
+        yield put({ type: 'CLEAR_REGISTRATION_ERROR' });
+        yield axios.post('api/user/register', action.payload);
+
+    } catch (error) {
+        console.log('Error with user registration:', error);
+        yield put({ type: 'REGISTRATION_FAILED' });
     }
 }
 
 function* updateUser(action) {
     try {
         yield axios.put('api/user', action.payload);
-        yield put({ type: FETCH_USER });
+        yield put(UserAction.fetch());
     } catch (error) {
         console.log('User update failed', error);
     }
 }
 
 function* userSaga() {
-    yield takeLatest(FETCH_USER, fetchUser);
-    yield takeLatest(UPDATE_USER, updateUser);
+    yield takeLatest(ActionType.FETCH_USER, fetchUser);
+    yield takeLatest(ActionType.LOGIN_USER, loginUser);
+    yield takeLatest(ActionType.LOGOUT_USER, logoutUser);
+    yield takeLatest(ActionType.REGISTER_USER, registerUser);
+    yield takeLatest(ActionType.UPDATE_USER, updateUser);
 }
 
 export default userSaga;

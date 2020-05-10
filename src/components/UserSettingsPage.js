@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { UPDATE_USER } from '../redux/actionTypes';
+import { UserAction } from '../redux/actionTypes';
 
 function UserSettingsPage(props) {
     const [userDetails, setUserDetails] = useState({
@@ -28,10 +28,9 @@ function UserSettingsPage(props) {
 
     const submitUpdate = (event) => {
         event.preventDefault();
-        props.dispatch({
-            type: UPDATE_USER,
-            payload: userDetails
-        });
+        props.dispatch(
+            UserAction.update(userDetails)
+        );
     };
 
     const cancelUpdate = () => {

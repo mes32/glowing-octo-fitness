@@ -22,7 +22,7 @@ import RegistrationPage from './components/RegistrationPage';
 import UserSettingsPage from './components/UserSettingsPage';
 import UserWorkoutsPage from './components/UserWorkoutsPage';
 
-import { FETCH_USER } from './redux/actionTypes';
+import { UserAction } from './redux/actionTypes';
 
 import './styles/App.css';
 
@@ -30,7 +30,7 @@ function App(props) {
 
   useEffect(() => {
     // props.dispatch(UserAction.fetch());
-    props.dispatch({ type: FETCH_USER });
+    props.dispatch(UserAction.fetch());
   });
 
   return (

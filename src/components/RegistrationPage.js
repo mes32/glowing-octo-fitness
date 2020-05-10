@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { REGISTER } from '../redux/actionTypes';
+import { UserAction } from '../redux/actionTypes';
 
 const DEFAULT_STATE = {
     username: '',
@@ -15,14 +15,12 @@ function RegisterPage(props) {
 
     const registerUser = (event) => {
         event.preventDefault();
+        const userCredentials = {
+            username: state.username,
+            password: state.password
+        }
         if (state.username && state.password) {
-            props.dispatch({
-                type: REGISTER,
-                payload: {
-                    username: state.username,
-                    password: state.password
-                }
-            });
+            props.dispatch(UserAction.register(userCredentials));
         } else {
             props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
         }
