@@ -6,6 +6,7 @@ export const ActionType = {
     SET_USER: 'SET_USER',
     UNSET_USER: 'UNSET_USER',
     UPDATE_USER: 'UPDATE_USER',
+    UPDATE_USER_PASSWORD: 'UPDATE_USER_PASSWORD',
 
     CLEAR_ALERTS: 'CLEAR_ALERTS',
 
@@ -15,8 +16,13 @@ export const ActionType = {
 
     REGISTRATION_FAILED: 'REGISTRATION_FAILED',
     REGISTRATION_INPUT_ERROR: 'REGISTRATION_INPUT_ERROR',
-    REGISTRATION_SUCCESS: 'REGISTRATION_SUCCESS'
-}
+    REGISTRATION_SUCCESS: 'REGISTRATION_SUCCESS',
+
+    USER_SETTINGS_FAILED: 'USER_SETTINGS_FAILED',
+    USER_SETTINGS_NO_CODE: 'USER_SETTINGS_NO_CODE',
+    USER_SETTINGS_SUCCESS: 'USER_SETTINGS_SUCCESS',
+    USER_SETTINGS_SUCCESS_PASSWORD: 'USER_SETTINGS_SUCCESS_PASSWORD'
+};
 
 export const UserAction = {
     fetch: () => ({ type: ActionType.FETCH_USER }),
@@ -26,6 +32,7 @@ export const UserAction = {
     setUser: (user) => ({ type: ActionType.SET_USER, payload: user }),
     unset: () => ({ type: ActionType.UNSET_USER }),
     update: (user) => ({ type: ActionType.UPDATE_USER, payload: user }),
+    updatePassword: (user) => ({ type: ActionType.UPDATE_USER_PASSWORD, payload: user }),
 };
 
 export const LoginAlert = {
@@ -40,4 +47,12 @@ export const RegistrationAlert = {
     failed: () => ({ type: ActionType.REGISTRATION_FAILED }),
     inputError: () => ({ type: ActionType.REGISTRATION_INPUT_ERROR }),
     success: (username) => ({ type: ActionType.REGISTRATION_SUCCESS, payload: username })
+};
+
+export const UserSettingsAlert = {
+    clear: () => ({ type: ActionType.CLEAR_ALERTS }),
+    failed: () => ({ type: ActionType.USER_SETTINGS_FAILED }),
+    noCode: () => ({ type: ActionType.USER_SETTINGS_NO_CODE }),
+    success: () => ({ type: ActionType.USER_SETTINGS_SUCCESS }),
+    successPassword: () => ({ type: ActionType.USER_SETTINGS_SUCCESS_PASSWORD })
 };

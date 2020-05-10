@@ -39,7 +39,7 @@ function RegisterPage(props) {
             <h1>Register User</h1>
             <Alerts error={props.error} message={props.message} />
             <Form onSubmit={registerUser}>
-                <Form.Group controlId="formUsername">
+                <Form.Group>
                     <Form.Label>Username:</Form.Label>
                     <Form.Control
                         type="text"
@@ -49,7 +49,7 @@ function RegisterPage(props) {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-                <Form.Group controlId="formPassword">
+                <Form.Group>
                     <Form.Label>Password:</Form.Label>
                     <Form.Control
                         type="password"

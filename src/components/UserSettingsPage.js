@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { UserAction } from '../redux/actionTypes';
+import Alerts from './Alerts';
+import { UserAction, UserSettingsAlert } from '../redux/actionTypes';
 
 function UserSettingsPage(props) {
     const [userDetails, setUserDetails] = useState({
         displayName: props.user.displayName,
-        password: ''
+        password: '',
+        newPassword: ''
     });
 
     const handleInputChange = (event) => {
@@ -28,24 +30,39 @@ function UserSettingsPage(props) {
 
     const submitUpdate = (event) => {
         event.preventDefault();
-        props.dispatch(
-            UserAction.update(userDetails)
-        );
+        if (userDetails.password && userDetails.newPassword) {
+            props.dispatch(UserAction.updatePassword(userDetails));
+            setUserDetails({
+                ...userDetails,
+                password: '',
+                newPassword: ''
+            });
+        } else {
+            props.dispatch(UserAction.update(userDetails));
+            setUserDetails({
+                ...userDetails,
+                password: '',
+                newPassword: ''
+            });
+        }
     };
 
     const cancelUpdate = () => {
         setUserDetails({
             displayName: props.user.displayName,
-            password: ''
+            password: '',
+            newPassword: ''
         });
+        props.dispatch(UserSettingsAlert.clear());
     };
 
     return (
         <div>
             <h1>Account Settings</h1>
             <h3>Welcome {displayName()}</h3>
+            <Alerts error={props.error} message={props.message} />
             <Form onSubmit={submitUpdate}>
-                <Form.Group controlId="formUsername">
+                <Form.Group>
                     <Form.Label>Username:</Form.Label>
                     <Form.Control
                         type="text"
@@ -65,17 +82,27 @@ function UserSettingsPage(props) {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-                <Form.Group controlId="formPassword">
-                    <Form.Label>Password:</Form.Label>
+                <Form.Group>
+                    <Form.Label>Current Password:</Form.Label>
                     <Form.Control
                         type="password"
-                        placeholder="Password"
+                        placeholder="Current Password"
                         name="password"
                         value={userDetails.password}
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-                <Button type="submit" variant="primary">Update</Button>
+                <Form.Group>
+                    <Form.Label>New Password:</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="New Password"
+                        name="newPassword"
+                        value={userDetails.newPassword}
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Button type="submit" variant="primary">Update Account</Button>
                 <Button onClick={cancelUpdate} variant="secondary">Cancel</Button>
             </Form>
         </div>
@@ -84,6 +111,8 @@ function UserSettingsPage(props) {
 
 const mapStateToProps = state => ({
     user: state.user,
+    error: state.errors.userSettingsPage,
+    message: state.messages.userSettingsPage
 });
 
 export default connect(mapStateToProps)(UserSettingsPage);

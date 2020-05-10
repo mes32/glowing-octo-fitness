@@ -13,6 +13,20 @@ const registrationPage = (state = '', action) => {
     }
 };
 
+const userSettingsPage = (state = '', action) => {
+    switch (action.type) {
+        case ActionType.CLEAR_ALERTS:
+            return '';
+        case ActionType.USER_SETTINGS_SUCCESS:
+            return 'User account details successfully updated';
+        case ActionType.USER_SETTINGS_SUCCESS_PASSWORD:
+            return 'Password successfully changed';
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
-    registrationPage
+    registrationPage,
+    userSettingsPage
 });

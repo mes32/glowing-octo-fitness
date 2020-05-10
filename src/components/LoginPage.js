@@ -36,7 +36,7 @@ function LoginPage(props) {
             <h1>Login</h1>
             <Alerts error={props.error} />
             <Form>     
-                <Form.Group controlId="formUsername">
+                <Form.Group>
                     <Form.Label>Username:</Form.Label>
                     <Form.Control
                         type="text"
@@ -46,7 +46,7 @@ function LoginPage(props) {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-                <Form.Group controlId="formPassword">
+                <Form.Group>
                     <Form.Label>Password:</Form.Label>
                     <Form.Control
                         type="password"

@@ -30,7 +30,21 @@ const registrationPage = (state = '', action) => {
     }
 };
 
+const userSettingsPage = (state = '', action) => {
+    switch (action.type) {
+        case ActionType.CLEAR_ALERTS:
+            return '';
+        case ActionType.USER_SETTINGS_FAILED:
+            return 'Unable to update user settings';
+        case ActionType.USER_SETTINGS_NO_CODE:
+            return 'Unable to update user settings. Is the server running?';
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     loginPage,
     registrationPage,
+    userSettingsPage
 });

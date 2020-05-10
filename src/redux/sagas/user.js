@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
-import { ActionType, LoginAlert, RegistrationAlert, UserAction } from '../actionTypes';
+import {
+    ActionType,
+    LoginAlert,
+    RegistrationAlert,
+    UserAction,
+    UserSettingsAlert
+} from '../actionTypes';
 
 function* fetchUser() {
     try {
@@ -78,10 +84,29 @@ function* registerUser(action) {
 
 function* updateUser(action) {
     try {
-        yield axios.put('api/user', action.payload);
+        const body = {
+            displayName: action.payload.displayName
+        };
+
+        yield put(UserSettingsAlert.clear());
+        yield axios.put('api/user/display-name', body);
         yield put(UserAction.fetch());
+        yield put(UserSettingsAlert.success());
     } catch (error) {
         console.log('User update failed', error);
+        yield put(UserSettingsAlert.failed());
+    }
+}
+
+function* updateUserPassword(action) {
+    try {
+        yield put(UserSettingsAlert.clear());
+        yield axios.put('api/user', action.payload);
+        yield put(UserAction.fetch());
+        yield put(UserSettingsAlert.successPassword());
+    } catch (error) {
+        console.log('User update failed', error);
+        yield put(UserSettingsAlert.failed());
     }
 }
 
@@ -91,6 +116,7 @@ function* userSaga() {
     yield takeLatest(ActionType.LOGOUT_USER, logoutUser);
     yield takeLatest(ActionType.REGISTER_USER, registerUser);
     yield takeLatest(ActionType.UPDATE_USER, updateUser);
+    yield takeLatest(ActionType.UPDATE_USER_PASSWORD, updateUserPassword);
 }
 
 export default userSaga;
