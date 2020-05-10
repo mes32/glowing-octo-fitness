@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
-import { ActionType, LoginError, RegistrationError, UserAction } from '../actionTypes';
+import { ActionType, LoginAlert, RegistrationAlert, UserAction } from '../actionTypes';
 
 function* fetchUser() {
     try {
@@ -19,7 +19,7 @@ function* fetchUser() {
 function* loginUser(action) {
     console.log('loginUser');
     try {
-        yield put(LoginError.clear());
+        yield put(LoginAlert.clear());
 
         const config = {
             headers: { 'Content-Type': 'application/json' },
@@ -39,16 +39,16 @@ function* loginUser(action) {
     } catch (error) {
         console.log('Error with user login:', error);
         if (error.response.status === 401) {
-            yield put(LoginError.failed());
+            yield put(LoginAlert.failed());
         } else {
-            yield put(LoginError.noCode());
+            yield put(LoginAlert.noCode());
         }
     }
 }
 
 function* logoutUser(action) {
     try {
-        yield put(LoginError.clear());
+        yield put(LoginAlert.clear());
 
         const config = {
             headers: { 'Content-Type': 'application/json' },
@@ -67,12 +67,12 @@ function* logoutUser(action) {
 
 function* registerUser(action) {
     try {
-        yield put(RegistrationError.clear());
+        yield put(RegistrationAlert.clear());
         yield axios.post('api/user/register', action.payload);
-
+        yield put(RegistrationAlert.success(action.payload.username));
     } catch (error) {
         console.log('Error with user registration:', error);
-        yield put(RegistrationError.failed());
+        yield put(RegistrationAlert.failed());
     }
 }
 
