@@ -17,6 +17,7 @@ import ProtectedRoute from './modules/ProtectedRoute';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import LogoutPage from './components/LogoutPage';
+import ManageUsersPage from './components/ManageUsersPage';
 import Navbar from './components/Navbar';
 import RegistrationPage from './components/RegistrationPage';
 import UserSettingsPage from './components/UserSettingsPage';
@@ -63,6 +64,10 @@ function App(props) {
               <ProtectedRoute
                 exact path="/user/settings"
                 component={UserSettingsPage}
+              />
+              <AdminRoute
+                exact path="/users"
+                component={ManageUsersPage}
               />
               <Route render={() => <h1>404: Not Found</h1>} />
             </Switch>

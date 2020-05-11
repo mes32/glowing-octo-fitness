@@ -1,4 +1,8 @@
 export const ActionType = {
+    FETCH_ALL_USERS: 'FETCH_ALL_USERS',
+    SET_ALL_USERS: 'SET_ALL_USERS',
+    UNSET_ALL_USERS: 'UNSET_ALL_USERS',
+
     FETCH_USER: 'FETCH_USER',
     LOGIN_USER: 'LOGIN_USER',
     LOGOUT_USER: 'LOGOUT_USER',
@@ -22,6 +26,12 @@ export const ActionType = {
     USER_SETTINGS_NO_CODE: 'USER_SETTINGS_NO_CODE',
     USER_SETTINGS_SUCCESS: 'USER_SETTINGS_SUCCESS',
     USER_SETTINGS_SUCCESS_PASSWORD: 'USER_SETTINGS_SUCCESS_PASSWORD'
+};
+
+export const AllUsersAction = {
+    fetch: () => ({ type: ActionType.FETCH_ALL_USERS }),
+    set: (users) => ({ type: ActionType.SET_ALL_USERS, payload: users }),
+    unset: () => ({ type: ActionType.UNSET_ALL_USERS })
 };
 
 export const UserAction = {

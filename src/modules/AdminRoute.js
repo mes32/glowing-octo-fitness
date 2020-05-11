@@ -5,13 +5,12 @@ import { connect } from 'react-redux';
 const AdminRoute = (props) => {
     const {
         component: ComponentToProtect,
-        user,
-        ...otherProps
+        user
     } = props;
 
     if (user && user.isAdmin) {
         return <Route
-            {...otherProps}
+            exact path={props.path}
             component={ComponentToProtect}
         />;
     } else {

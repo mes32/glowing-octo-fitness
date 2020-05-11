@@ -1,5 +1,5 @@
 const express = require('express');
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { rejectUnauthenticated, rejectNonAdmin } = require('../modules/authentication-middleware');
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
@@ -8,6 +8,19 @@ const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
     res.send(req.user);
+});
+
+router.get('/all', rejectNonAdmin, (req, res) => {
+    const selectSql = 'SELECT * FROM app_user;';
+
+    pool.query(
+        selectSql
+    ).then((result) => {
+        res.send(result.rows);
+    }).catch((err) => {
+        console.log('Error in GET /api/user/all ' + err);
+        res.sendStatus(500);
+    });
 });
 
 router.put('/', rejectUnauthenticated, (req, res) => {
