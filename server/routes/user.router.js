@@ -11,7 +11,15 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/all', rejectNonAdmin, (req, res) => {
-    const selectSql = 'SELECT * FROM app_user;';
+    const selectSql = `
+    SELECT 
+        id
+        , username
+        , display_name
+        , is_admin
+        , date_created  
+    FROM app_user;
+    `;
 
     pool.query(
         selectSql
@@ -19,6 +27,53 @@ router.get('/all', rejectNonAdmin, (req, res) => {
         res.send(result.rows);
     }).catch((err) => {
         console.log('Error in GET /api/user/all ' + err);
+        res.sendStatus(500);
+    });
+});
+
+router.get('/:id', rejectNonAdmin, (req, res) => {
+    const id = req.params.id;
+    const selectSql = `
+    SELECT
+        id
+        , username
+        , display_name
+        , is_admin
+        , date_created  
+    FROM app_user
+    WHERE id = $1
+    LIMIT 1;
+    `;
+    const selectParams = [id];
+
+    pool.query(
+        selectSql,
+        selectParams
+    ).then((result) => {
+        res.send(result.rows[0]);
+    }).catch((err) => {
+        console.log('Error in GET /api/user/:id ' + err);
+        res.sendStatus(500);
+    });
+});
+
+router.put('/:id/reset-password', rejectNonAdmin, (req, res) => {
+    const id = req.params.id;
+    const password = encryptLib.encryptPassword(req.body.password);
+    const updateSql = `
+    UPDATE app_user SET 
+        password = $1
+        WHERE id = $2;
+    `;
+    const updateParams = [password, id];
+
+    pool.query(
+        updateSql,
+        updateParams
+    ).then(() => {
+        res.sendStatus(200);
+    }).catch((err) => {
+        console.log('Error in PUT /api/user/:id/reset-password ' + err);
         res.sendStatus(500);
     });
 });

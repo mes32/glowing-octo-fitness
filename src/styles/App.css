@@ -6,3 +6,7 @@
 .alert {
     font-weight: bold;
 }
+
+.user-details-table td:first-child {
+    font-weight: bold;
+}

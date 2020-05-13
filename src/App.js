@@ -14,6 +14,7 @@ import {
 import AdminRoute from './modules/AdminRoute';
 import ProtectedRoute from './modules/ProtectedRoute';
 
+import EditUserDetailsPage from './components/EditUserDetailsPage';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import LogoutPage from './components/LogoutPage';
@@ -45,6 +46,18 @@ function App(props) {
                 exact path="/home"
                 component={HomePage}
               />
+              <AdminRoute
+                exact path="/admin/register"
+                component={RegistrationPage}
+              />
+              <AdminRoute
+                exact path="/admin/user/:id/editDetails"
+                component={EditUserDetailsPage}
+              />
+              <AdminRoute
+                exact path="/admin/users"
+                component={ManageUsersPage}
+              />
               <Route
                 exact path="/login"
                 component={LoginPage}
@@ -53,10 +66,6 @@ function App(props) {
                 exact path="/logout"
                 component={LogoutPage}
               />
-              <AdminRoute
-                exact path="/register"
-                component={RegistrationPage}
-              />
               <ProtectedRoute
                 exact path="/user/workouts"
                 component={UserWorkoutsPage}
@@ -64,10 +73,6 @@ function App(props) {
               <ProtectedRoute
                 exact path="/user/settings"
                 component={UserSettingsPage}
-              />
-              <AdminRoute
-                exact path="/users"
-                component={ManageUsersPage}
               />
               <Route render={() => <h1>404: Not Found</h1>} />
             </Switch>

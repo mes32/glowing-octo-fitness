@@ -3,6 +3,11 @@ export const ActionType = {
     SET_ALL_USERS: 'SET_ALL_USERS',
     UNSET_ALL_USERS: 'UNSET_ALL_USERS',
 
+    FETCH_EDIT_USER: 'FETCH_EDIT_USER',
+    RESET_PASSWORD: 'RESET_PASSWORD',
+    SET_EDIT_USER: 'SET_EDIT_USER',
+    UNSET_EDIT_USER: 'UNSET_EDIT_USER',
+
     FETCH_USER: 'FETCH_USER',
     LOGIN_USER: 'LOGIN_USER',
     LOGOUT_USER: 'LOGOUT_USER',
@@ -22,6 +27,9 @@ export const ActionType = {
     REGISTRATION_INPUT_ERROR: 'REGISTRATION_INPUT_ERROR',
     REGISTRATION_SUCCESS: 'REGISTRATION_SUCCESS',
 
+    USER_EDIT_PASSWORD_FAIL: 'USER_EDIT_PASSWORD_FAIL',
+    USER_EDIT_PASSWORD_SUCCESS: 'USER_EDIT_PASSWORD_SUCCESS',
+
     USER_SETTINGS_FAILED: 'USER_SETTINGS_FAILED',
     USER_SETTINGS_NO_CODE: 'USER_SETTINGS_NO_CODE',
     USER_SETTINGS_SUCCESS: 'USER_SETTINGS_SUCCESS',
@@ -32,6 +40,13 @@ export const AllUsersAction = {
     fetch: () => ({ type: ActionType.FETCH_ALL_USERS }),
     set: (users) => ({ type: ActionType.SET_ALL_USERS, payload: users }),
     unset: () => ({ type: ActionType.UNSET_ALL_USERS })
+};
+
+export const EditUserAction = {
+    fetch: (id) => ({ type: ActionType.FETCH_EDIT_USER, payload: id }),
+    resetPassword: (id, password) => ({ type: ActionType.RESET_PASSWORD, payload: { id, password } }),
+    set: (editUser) => ({ type: ActionType.SET_EDIT_USER, payload: editUser }),
+    unset: () => ({ type: ActionType.UNSET_EDIT_USER })
 };
 
 export const UserAction = {
@@ -57,6 +72,12 @@ export const RegistrationAlert = {
     failed: () => ({ type: ActionType.REGISTRATION_FAILED }),
     inputError: () => ({ type: ActionType.REGISTRATION_INPUT_ERROR }),
     success: (username) => ({ type: ActionType.REGISTRATION_SUCCESS, payload: username })
+};
+
+export const UserEditAlert = {
+    clear: () => ({ type: ActionType.CLEAR_ALERTS }),
+    passwordFail: () => ({ type: ActionType.USER_EDIT_PASSWORD_FAIL }),
+    passwordSuccess: () => ({ type: ActionType.USER_EDIT_PASSWORD_SUCCESS })
 };
 
 export const UserSettingsAlert = {

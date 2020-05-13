@@ -8,7 +8,6 @@ import {
 function* fetchAllUsers() {
     try {
         const response = yield axios.get('api/user/all');
-        console.log(response.data);
         yield put(AllUsersAction.set(response.data));
     } catch (error) {
         console.log('Get all users request failed', error);

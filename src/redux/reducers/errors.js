@@ -30,6 +30,17 @@ const registrationPage = (state = '', action) => {
     }
 };
 
+const userEditPage = (state = '', action) => {
+    switch (action.type) {
+        case ActionType.CLEAR_ALERTS:
+            return '';
+        case ActionType.USER_EDIT_PASSWORD_FAIL:
+            return 'Unable to reset user\'s password';
+        default:
+            return state;
+    }
+};
+
 const userSettingsPage = (state = '', action) => {
     switch (action.type) {
         case ActionType.CLEAR_ALERTS:
@@ -46,5 +57,6 @@ const userSettingsPage = (state = '', action) => {
 export default combineReducers({
     loginPage,
     registrationPage,
+    userEditPage,
     userSettingsPage
 });
