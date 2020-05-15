@@ -3,20 +3,20 @@ import { put, takeLatest } from 'redux-saga/effects';
 import {
     ActionType,
     AlertAction,
-    EditUserAction
+    User
 } from '../actionTypes';
 
-function* fetchEditUser(action) {
+function* fetchUser(action) {
     try {
         const id = action.payload;
         const response = yield axios.get(`api/user/${id}`);
-        yield put(EditUserAction.set(response.data));
+        yield put(User.set(response.data));
     } catch (error) {
         console.log('Get edit user request failed', error);
     }
 }
 
-function* resetPassword(action) {
+function* resetUserPassword(action) {
     try {
         const id = action.payload.id;
         const password = action.payload.password;
@@ -31,8 +31,8 @@ function* resetPassword(action) {
 }
 
 function* userSaga() {
-    yield takeLatest(ActionType.FETCH_EDIT_USER, fetchEditUser);
-    yield takeLatest(ActionType.RESET_PASSWORD, resetPassword);
+    yield takeLatest(ActionType.FETCH_USER, fetchUser);
+    yield takeLatest(ActionType.RESET_USER_PASSWORD, resetUserPassword);
 }
 
 export default userSaga;

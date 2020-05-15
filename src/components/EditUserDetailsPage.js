@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 
 import Alerts from './Alerts';
-import { EditUserAction } from '../redux/actionTypes';
+import { User } from '../redux/actionTypes';
 
 const DATABASE_DATE_FORMAT = 'YYYY-MM-DDThh:mm:ss.zzzZ';
 const TABLE_DATE_FORMAT = 'YYYY-MM-DD';
@@ -15,7 +15,7 @@ function EditUserDetailsPage(props) {
     const dispatch = props.dispatch;
     const id = props.match.params.id;
     useEffect(() => {
-        dispatch(EditUserAction.fetch(id));
+        dispatch(User.fetch(id));
     }, [dispatch, id]);
 
     const [newPassword, setNewPassword] = useState('');
@@ -27,7 +27,7 @@ function EditUserDetailsPage(props) {
     const submitPasswordReset = (event) => {
         event.preventDefault();
         if (newPassword) {
-            dispatch(EditUserAction.resetPassword(id, newPassword));
+            dispatch(User.resetPassword(id, newPassword));
             setNewPassword('');
         }
     }
@@ -62,7 +62,7 @@ function EditUserDetailsPage(props) {
                 </tbody>
             </Table>
             <h3>Password Reset</h3>
-            <Alerts error={props.error} message={props.message} />
+            <Alerts />
             <Form onSubmit={submitPasswordReset}>
                 <Form.Group>
                     <Form.Control
@@ -79,9 +79,7 @@ function EditUserDetailsPage(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.editUser,
-    error: state.errors.userEditPage,
-    message: state.messages.userEditPage
+    user: state.editUser
 });
 
 export default connect(mapStateToProps)(EditUserDetailsPage);

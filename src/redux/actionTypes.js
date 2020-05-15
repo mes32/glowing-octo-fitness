@@ -8,10 +8,10 @@ export const ActionType = {
     SET_ALL_USERS: 'SET_ALL_USERS',
     UNSET_ALL_USERS: 'UNSET_ALL_USERS',
 
-    FETCH_EDIT_USER: 'FETCH_EDIT_USER',
-    RESET_PASSWORD: 'RESET_PASSWORD',
-    SET_EDIT_USER: 'SET_EDIT_USER',
-    UNSET_EDIT_USER: 'UNSET_EDIT_USER',
+    FETCH_USER: 'FETCH_USER',
+    RESET_USER_PASSWORD: 'RESET_USER_PASSWORD',
+    SET_USER: 'SET_USER',
+    UNSET_USER: 'UNSET_USER',
 
     FETCH_USER_ACCOUNT: 'FETCH_USER_ACCOUNT',
     LOGIN: 'LOGIN',
@@ -36,11 +36,11 @@ export const AllUsersAction = {
     unset: () => ({ type: ActionType.UNSET_ALL_USERS })
 };
 
-export const EditUserAction = {
-    fetch: (id) => ({ type: ActionType.FETCH_EDIT_USER, payload: id }),
-    resetPassword: (id, password) => ({ type: ActionType.RESET_PASSWORD, payload: { id, password } }),
-    set: (editUser) => ({ type: ActionType.SET_EDIT_USER, payload: editUser }),
-    unset: () => ({ type: ActionType.UNSET_EDIT_USER })
+export const User = {
+    fetch: (id) => ({ type: ActionType.FETCH_USER, payload: id }),
+    resetPassword: (id, password) => ({ type: ActionType.RESET_USER_PASSWORD, payload: { id, password } }),
+    set: (editUser) => ({ type: ActionType.SET_USER, payload: editUser }),
+    unset: () => ({ type: ActionType.UNSET_USER })
 };
 
 export const UserAccount = {
