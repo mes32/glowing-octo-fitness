@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import { UserAction } from '../redux/actionTypes';
+import { UserAccount } from '../redux/actionTypes';
 
 function NavbarComponent(props) {
     const history = useHistory();
@@ -17,7 +17,7 @@ function NavbarComponent(props) {
 
     const toggleAuthentication = () => {
         if (props.user) {
-            props.dispatch(UserAction.logout(history));
+            props.dispatch(UserAccount.logout(history));
         } else {
             history.push('/login');
         }
@@ -45,7 +45,7 @@ function NavbarComponent(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.user,
+    user: state.UserAccount,
 });
 
 export default connect(mapStateToProps)(NavbarComponent);

@@ -13,14 +13,14 @@ export const ActionType = {
     SET_EDIT_USER: 'SET_EDIT_USER',
     UNSET_EDIT_USER: 'UNSET_EDIT_USER',
 
-    FETCH_USER: 'FETCH_USER',
-    LOGIN_USER: 'LOGIN_USER',
-    LOGOUT_USER: 'LOGOUT_USER',
-    REGISTER_USER: 'REGISTER_USER',
-    SET_USER: 'SET_USER',
-    UNSET_USER: 'UNSET_USER',
-    UPDATE_USER: 'UPDATE_USER',
-    UPDATE_USER_PASSWORD: 'UPDATE_USER_PASSWORD'
+    FETCH_USER_ACCOUNT: 'FETCH_USER_ACCOUNT',
+    LOGIN: 'LOGIN',
+    LOGOUT: 'LOGOUT',
+    REGISTER: 'REGISTER',
+    SET_USER_ACCOUNT: 'SET_USER_ACCOUNT',
+    UNSET_USER_ACCOUNT: 'UNSET_USER_ACCOUNT',
+    UPDATE_USER_ACCOUNT: 'UPDATE_USER_ACCOUNT',
+    UPDATE_USER_ACCOUNT_PASSWORD: 'UPDATE_USER_ACCOUNT_PASSWORD'
 };
 
 export const AlertAction = {
@@ -43,13 +43,13 @@ export const EditUserAction = {
     unset: () => ({ type: ActionType.UNSET_EDIT_USER })
 };
 
-export const UserAction = {
-    fetch: () => ({ type: ActionType.FETCH_USER }),
-    login: (userCredentials) => ({ type: ActionType.LOGIN_USER, payload: userCredentials }),
-    logout: (history) => ({ type: ActionType.LOGOUT_USER, payload: history }),
-    register: (userCredentials) => ({ type: ActionType.REGISTER_USER, payload: userCredentials }),
-    setUser: (user) => ({ type: ActionType.SET_USER, payload: user }),
-    unset: () => ({ type: ActionType.UNSET_USER }),
-    update: (user) => ({ type: ActionType.UPDATE_USER, payload: user }),
-    updatePassword: (user) => ({ type: ActionType.UPDATE_USER_PASSWORD, payload: user }),
+export const UserAccount = {
+    fetch: () => ({ type: ActionType.FETCH_USER_ACCOUNT }),
+    login: (userCredentials) => ({ type: ActionType.LOGIN, payload: userCredentials }),
+    logout: (history) => ({ type: ActionType.LOGOUT, payload: history }),
+    register: (userCredentials) => ({ type: ActionType.REGISTER, payload: userCredentials }),
+    setUser: (user) => ({ type: ActionType.SET_USER_ACCOUNT, payload: user }),
+    unset: () => ({ type: ActionType.UNSET_USER_ACCOUNT }),
+    update: (user) => ({ type: ActionType.UPDATE_USER_ACCOUNT, payload: user }),
+    updatePassword: (user) => ({ type: ActionType.UPDATE_USER_ACCOUNT_PASSWORD, payload: user })
 };

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import Alerts from './Alerts';
-import { UserAction, AlertAction } from '../redux/actionTypes';
+import { UserAccount, AlertAction } from '../redux/actionTypes';
 
 function LoginPage(props) {
     const [username, setUsername] = useState('');
@@ -16,7 +16,7 @@ function LoginPage(props) {
         event.preventDefault();
         if (username && password) {
             props.dispatch(
-                UserAction.login({ username, password, history })
+                UserAccount.login({ username, password, history })
             );
         } else {
             props.dispatch(AlertAction.error('Please enter your username and password'));

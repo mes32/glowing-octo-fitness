@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import Alerts from './Alerts';
-import { AlertAction, UserAction } from '../redux/actionTypes';
+import { AlertAction, UserAccount } from '../redux/actionTypes';
 
 const DEFAULT_STATE = {
     username: '',
@@ -21,7 +21,7 @@ function RegisterPage(props) {
             password: state.password
         }
         if (state.username && state.password) {
-            props.dispatch(UserAction.register(userCredentials));
+            props.dispatch(UserAccount.register(userCredentials));
         } else {
             props.dispatch(AlertAction.error('Please enter username and password'));
         }

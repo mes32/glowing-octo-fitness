@@ -19,7 +19,7 @@ const AdminRoute = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    user: state.userAccount
 });
 
 export default connect(mapStateToProps)(AdminRoute);

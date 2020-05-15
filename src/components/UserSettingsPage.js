@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import Alerts from './Alerts';
-import { AlertAction, UserAction } from '../redux/actionTypes';
+import { AlertAction, UserAccount } from '../redux/actionTypes';
 
 function UserSettingsPage(props) {
     const [userDetails, setUserDetails] = useState({
@@ -31,14 +31,14 @@ function UserSettingsPage(props) {
     const submitUpdate = (event) => {
         event.preventDefault();
         if (userDetails.password && userDetails.newPassword) {
-            props.dispatch(UserAction.updatePassword(userDetails));
+            props.dispatch(UserAccount.updatePassword(userDetails));
             setUserDetails({
                 ...userDetails,
                 password: '',
                 newPassword: ''
             });
         } else {
-            props.dispatch(UserAction.update(userDetails));
+            props.dispatch(UserAccount.update(userDetails));
             setUserDetails({
                 ...userDetails,
                 password: '',
@@ -110,7 +110,7 @@ function UserSettingsPage(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.userAccount
 });
 
 export default connect(mapStateToProps)(UserSettingsPage);

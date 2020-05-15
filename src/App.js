@@ -24,14 +24,14 @@ import RegistrationPage from './components/RegistrationPage';
 import UserSettingsPage from './components/UserSettingsPage';
 import UserWorkoutsPage from './components/UserWorkoutsPage';
 
-import { UserAction } from './redux/actionTypes';
+import { UserAccount } from './redux/actionTypes';
 
 import './styles/App.css';
 
 function App(props) {
 
   useEffect(() => {
-    props.dispatch(UserAction.fetch());
+    props.dispatch(UserAccount.fetch());
   });
 
   return (

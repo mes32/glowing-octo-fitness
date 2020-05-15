@@ -3,10 +3,10 @@ import { put, takeLatest } from 'redux-saga/effects';
 import {
     ActionType,
     AlertAction,
-    UserAction
+    UserAccount
 } from '../actionTypes';
 
-function* fetchUser() {
+function* fetchUserAccount() {
     try {
         const config = {
             headers: { 'Content-Type': 'application/json' },
@@ -14,14 +14,13 @@ function* fetchUser() {
         };
 
         const response = yield axios.get('api/user', config);
-        yield put(UserAction.setUser(response.data));
+        yield put(UserAccount.setUser(response.data));
     } catch (error) {
         console.log('User get request failed', error);
     }
 }
 
-function* loginUser(action) {
-    console.log('loginUser');
+function* login(action) {
     try {
         const config = {
             headers: { 'Content-Type': 'application/json' },
@@ -36,7 +35,7 @@ function* loginUser(action) {
         const history = action.payload.history;
 
         yield axios.post('api/user/login', credentials, config);
-        yield put(UserAction.fetch());
+        yield put(UserAccount.fetch());
         yield history.push('/user/workouts');
     } catch (error) {
         console.log('Error with user login:', error);
@@ -48,7 +47,7 @@ function* loginUser(action) {
     }
 }
 
-function* logoutUser(action) {
+function* logout(action) {
     try {
         const config = {
             headers: { 'Content-Type': 'application/json' },
@@ -59,14 +58,14 @@ function* logoutUser(action) {
 
         yield put(AlertAction.clearAll());
         yield axios.post('api/user/logout', config);
-        yield put(UserAction.unset());
+        yield put(UserAccount.unset());
         yield history.push('/logout');
     } catch (error) {
         console.log('Error with user logout:', error);
     }
 }
 
-function* registerUser(action) {
+function* register(action) {
     try {
         const user = action.payload;
 
@@ -80,7 +79,7 @@ function* registerUser(action) {
     }
 }
 
-function* updateUser(action) {
+function* updateUserAccount(action) {
     try {
         const body = {
             displayName: action.payload.displayName
@@ -88,7 +87,7 @@ function* updateUser(action) {
 
         yield put(AlertAction.clearAll());
         yield axios.put('api/user/display-name', body);
-        yield put(UserAction.fetch());
+        yield put(UserAccount.fetch());
         yield put(AlertAction.message('User account details successfully updated'));
     } catch (error) {
         console.log('Unable to update user account details ', error);
@@ -96,13 +95,13 @@ function* updateUser(action) {
     }
 }
 
-function* updateUserPassword(action) {
+function* updateUserAccountPassword(action) {
     try {
         const user = action.payload;
 
         yield put(AlertAction.clearAll());
         yield axios.put('api/user', user);
-        yield put(UserAction.fetch());
+        yield put(UserAccount.fetch());
         yield put(AlertAction.message('Password successfully changed'));
     } catch (error) {
         console.log('Unable to set user password', error);
@@ -111,12 +110,12 @@ function* updateUserPassword(action) {
 }
 
 function* userSaga() {
-    yield takeLatest(ActionType.FETCH_USER, fetchUser);
-    yield takeLatest(ActionType.LOGIN_USER, loginUser);
-    yield takeLatest(ActionType.LOGOUT_USER, logoutUser);
-    yield takeLatest(ActionType.REGISTER_USER, registerUser);
-    yield takeLatest(ActionType.UPDATE_USER, updateUser);
-    yield takeLatest(ActionType.UPDATE_USER_PASSWORD, updateUserPassword);
+    yield takeLatest(ActionType.FETCH_USER_ACCOUNT, fetchUserAccount);
+    yield takeLatest(ActionType.LOGIN, login);
+    yield takeLatest(ActionType.LOGOUT, logout);
+    yield takeLatest(ActionType.REGISTER, register);
+    yield takeLatest(ActionType.UPDATE_USER_ACCOUNT, updateUserAccount);
+    yield takeLatest(ActionType.UPDATE_USER_ACCOUNT_PASSWORD, updateUserAccountPassword);
 }
 
 export default userSaga;
