@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import Alerts from './Alerts';
-import { UserAction, RegistrationAlert } from '../redux/actionTypes';
+import { AlertAction, UserAction } from '../redux/actionTypes';
 
 const DEFAULT_STATE = {
     username: '',
@@ -23,7 +23,7 @@ function RegisterPage(props) {
         if (state.username && state.password) {
             props.dispatch(UserAction.register(userCredentials));
         } else {
-            props.dispatch(RegistrationAlert.inputError());
+            props.dispatch(AlertAction.error('Please enter username and password'));
         }
     }
 
@@ -65,9 +65,4 @@ function RegisterPage(props) {
     );
 }
 
-const mapStateToProps = state => ({
-    error: state.errors.registrationPage,
-    message: state.messages.registrationPage
-});
-
-export default connect(mapStateToProps)(RegisterPage);
+export default connect()(RegisterPage);

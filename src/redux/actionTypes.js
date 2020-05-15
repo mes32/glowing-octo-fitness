@@ -1,4 +1,9 @@
 export const ActionType = {
+    CLEAR_ALERTS: 'CLEAR_ALERTS',
+    ALERT_ERROR: 'ALERT_ERROR',
+    ALERT_WARNING: 'ALERT_WARNING',
+    ALERT_MESSAGE: 'ALERT_MESSAGE',
+
     FETCH_ALL_USERS: 'FETCH_ALL_USERS',
     SET_ALL_USERS: 'SET_ALL_USERS',
     UNSET_ALL_USERS: 'UNSET_ALL_USERS',
@@ -15,25 +20,14 @@ export const ActionType = {
     SET_USER: 'SET_USER',
     UNSET_USER: 'UNSET_USER',
     UPDATE_USER: 'UPDATE_USER',
-    UPDATE_USER_PASSWORD: 'UPDATE_USER_PASSWORD',
+    UPDATE_USER_PASSWORD: 'UPDATE_USER_PASSWORD'
+};
 
-    CLEAR_ALERTS: 'CLEAR_ALERTS',
-
-    LOGIN_FAILED: 'LOGIN_FAILED',
-    LOGIN_INPUT_ERROR: 'LOGIN_INPUT_ERROR',
-    LOGIN_NO_CODE: 'LOGIN_NO_CODE',
-
-    REGISTRATION_FAILED: 'REGISTRATION_FAILED',
-    REGISTRATION_INPUT_ERROR: 'REGISTRATION_INPUT_ERROR',
-    REGISTRATION_SUCCESS: 'REGISTRATION_SUCCESS',
-
-    USER_EDIT_PASSWORD_FAIL: 'USER_EDIT_PASSWORD_FAIL',
-    USER_EDIT_PASSWORD_SUCCESS: 'USER_EDIT_PASSWORD_SUCCESS',
-
-    USER_SETTINGS_FAILED: 'USER_SETTINGS_FAILED',
-    USER_SETTINGS_NO_CODE: 'USER_SETTINGS_NO_CODE',
-    USER_SETTINGS_SUCCESS: 'USER_SETTINGS_SUCCESS',
-    USER_SETTINGS_SUCCESS_PASSWORD: 'USER_SETTINGS_SUCCESS_PASSWORD'
+export const AlertAction = {
+    clearAll: () => ({ type: ActionType.CLEAR_ALERTS }),
+    error: (text) => ({ type: ActionType.ALERT_ERROR, payload: text }),
+    warning: (text) => ({ type: ActionType.ALERT_WARNING, payload: text }),
+    message: (text) => ({ type: ActionType.ALERT_MESSAGE, payload: text })
 };
 
 export const AllUsersAction = {
@@ -58,32 +52,4 @@ export const UserAction = {
     unset: () => ({ type: ActionType.UNSET_USER }),
     update: (user) => ({ type: ActionType.UPDATE_USER, payload: user }),
     updatePassword: (user) => ({ type: ActionType.UPDATE_USER_PASSWORD, payload: user }),
-};
-
-export const LoginAlert = {
-    clear: () => ({ type: ActionType.CLEAR_ALERTS }),
-    failed: () => ({ type: ActionType.LOGIN_FAILED }),
-    inputError: () => ({ type: ActionType.LOGIN_INPUT_ERROR }),
-    noCode: () => ({ type: ActionType.LOGIN_NO_CODE })
-};
-
-export const RegistrationAlert = {
-    clear: () => ({ type: ActionType.CLEAR_ALERTS }),
-    failed: () => ({ type: ActionType.REGISTRATION_FAILED }),
-    inputError: () => ({ type: ActionType.REGISTRATION_INPUT_ERROR }),
-    success: (username) => ({ type: ActionType.REGISTRATION_SUCCESS, payload: username })
-};
-
-export const UserEditAlert = {
-    clear: () => ({ type: ActionType.CLEAR_ALERTS }),
-    passwordFail: () => ({ type: ActionType.USER_EDIT_PASSWORD_FAIL }),
-    passwordSuccess: () => ({ type: ActionType.USER_EDIT_PASSWORD_SUCCESS })
-};
-
-export const UserSettingsAlert = {
-    clear: () => ({ type: ActionType.CLEAR_ALERTS }),
-    failed: () => ({ type: ActionType.USER_SETTINGS_FAILED }),
-    noCode: () => ({ type: ActionType.USER_SETTINGS_NO_CODE }),
-    success: () => ({ type: ActionType.USER_SETTINGS_SUCCESS }),
-    successPassword: () => ({ type: ActionType.USER_SETTINGS_SUCCESS_PASSWORD })
 };

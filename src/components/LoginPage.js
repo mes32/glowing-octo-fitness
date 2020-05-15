@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import Alerts from './Alerts';
-import { UserAction, LoginAlert } from '../redux/actionTypes';
+import { UserAction, AlertAction } from '../redux/actionTypes';
 
 function LoginPage(props) {
     const [username, setUsername] = useState('');
@@ -19,7 +19,7 @@ function LoginPage(props) {
                 UserAction.login({ username, password, history })
             );
         } else {
-            props.dispatch(LoginAlert.inputError());
+            props.dispatch(AlertAction.error('Please enter your username and password'));
         }
     }
 
@@ -62,8 +62,4 @@ function LoginPage(props) {
     );
 }
 
-const mapStateToProps = state => ({
-    error: state.errors.loginPage,
-});
-
-export default connect(mapStateToProps)(LoginPage);
+export default connect()(LoginPage);

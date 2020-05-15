@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import Alerts from './Alerts';
-import { UserAction, UserSettingsAlert } from '../redux/actionTypes';
+import { AlertAction, UserAction } from '../redux/actionTypes';
 
 function UserSettingsPage(props) {
     const [userDetails, setUserDetails] = useState({
@@ -53,7 +53,7 @@ function UserSettingsPage(props) {
             password: '',
             newPassword: ''
         });
-        props.dispatch(UserSettingsAlert.clear());
+        props.dispatch(AlertAction.clearAll());
     };
 
     return (
@@ -110,9 +110,7 @@ function UserSettingsPage(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.user,
-    error: state.errors.userSettingsPage,
-    message: state.messages.userSettingsPage
+    user: state.user
 });
 
 export default connect(mapStateToProps)(UserSettingsPage);

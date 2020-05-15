@@ -1,14 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
 
-function Alerts(props) {
+function Alerts({ error, warning, message }) {
     return (
         <>
-            {props.error && <Alert variant="danger" className="alert">{props.error}</Alert>}
-            {props.warning && <Alert variant="warning" className="alert">{props.warning}</Alert>}
-            {props.message && <Alert variant="primary" className="alert">{props.message}</Alert>}
+            {error && <Alert variant="danger" className="alert">{error}</Alert>}
+            {warning && <Alert variant="warning" className="alert">{warning}</Alert>}
+            {message && <Alert variant="primary" className="alert">{message}</Alert>}
         </>
     );
 }
 
-export default Alerts;
+const mapStateToProps = state => ({
+    error: state.alerts.error,
+    warning: state.alerts.warning,
+    message: state.alerts.message
+});
+
+export default connect(mapStateToProps)(Alerts);

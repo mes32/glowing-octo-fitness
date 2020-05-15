@@ -2,8 +2,8 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 import {
     ActionType,
-    EditUserAction,
-    UserEditAlert
+    AlertAction,
+    EditUserAction
 } from '../actionTypes';
 
 function* fetchEditUser(action) {
@@ -20,12 +20,13 @@ function* resetPassword(action) {
     try {
         const id = action.payload.id;
         const password = action.payload.password;
-        yield put(UserEditAlert.clear());
+
+        yield put(AlertAction.clearAll());
         yield axios.put(`api/user/${id}/reset-password`, { password });
-        yield put(UserEditAlert.passwordSuccess());
+        yield put(AlertAction.message('Success, reset user\'s password'));
     } catch (error) {
-        console.log('Get edit user request failed', error);
-        yield put(UserEditAlert.passwordFail());
+        console.log('Unable to reset user\'s password', error);
+        yield put(AlertAction.error('Unable to reset user\'s password'));
     }
 }
 

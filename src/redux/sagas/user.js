@@ -2,10 +2,8 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 import {
     ActionType,
-    LoginAlert,
-    RegistrationAlert,
-    UserAction,
-    UserSettingsAlert
+    AlertAction,
+    UserAction
 } from '../actionTypes';
 
 function* fetchUser() {
@@ -25,8 +23,6 @@ function* fetchUser() {
 function* loginUser(action) {
     console.log('loginUser');
     try {
-        yield put(LoginAlert.clear());
-
         const config = {
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true,
@@ -45,17 +41,15 @@ function* loginUser(action) {
     } catch (error) {
         console.log('Error with user login:', error);
         if (error.response.status === 401) {
-            yield put(LoginAlert.failed());
+            yield put(AlertAction.error('Username and password didn\'t match. Try again.'));
         } else {
-            yield put(LoginAlert.noCode());
+            yield put(AlertAction.error('No response from server. Is the server running?'));
         }
     }
 }
 
 function* logoutUser(action) {
     try {
-        yield put(LoginAlert.clear());
-
         const config = {
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true,
@@ -63,6 +57,7 @@ function* logoutUser(action) {
 
         const history = action.payload;
 
+        yield put(AlertAction.clearAll());
         yield axios.post('api/user/logout', config);
         yield put(UserAction.unset());
         yield history.push('/logout');
@@ -73,12 +68,15 @@ function* logoutUser(action) {
 
 function* registerUser(action) {
     try {
-        yield put(RegistrationAlert.clear());
-        yield axios.post('api/user/register', action.payload);
-        yield put(RegistrationAlert.success(action.payload.username));
+        const user = action.payload;
+
+        yield put(AlertAction.clearAll());
+        yield axios.post('api/user/register', user);
+        yield put(AlertAction.message(`Registered new user: ${user.username}`));
+        // TODO: diferentiate between exection and server is offline
     } catch (error) {
         console.log('Error with user registration:', error);
-        yield put(RegistrationAlert.failed());
+        yield put(AlertAction.error('That username might already be taken. Try a different one.'));
     }
 }
 
@@ -88,25 +86,27 @@ function* updateUser(action) {
             displayName: action.payload.displayName
         };
 
-        yield put(UserSettingsAlert.clear());
+        yield put(AlertAction.clearAll());
         yield axios.put('api/user/display-name', body);
         yield put(UserAction.fetch());
-        yield put(UserSettingsAlert.success());
+        yield put(AlertAction.message('User account details successfully updated'));
     } catch (error) {
-        console.log('User update failed', error);
-        yield put(UserSettingsAlert.failed());
+        console.log('Unable to update user account details ', error);
+        yield put(AlertAction.message('Unable to update user account details'));
     }
 }
 
 function* updateUserPassword(action) {
     try {
-        yield put(UserSettingsAlert.clear());
-        yield axios.put('api/user', action.payload);
+        const user = action.payload;
+
+        yield put(AlertAction.clearAll());
+        yield axios.put('api/user', user);
         yield put(UserAction.fetch());
-        yield put(UserSettingsAlert.successPassword());
+        yield put(AlertAction.message('Password successfully changed'));
     } catch (error) {
-        console.log('User update failed', error);
-        yield put(UserSettingsAlert.failed());
+        console.log('Unable to set user password', error);
+        yield put(AlertAction.error('Unable to set user password'));
     }
 }
 
