@@ -10,6 +10,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
     pool.query('SELECT * FROM app_user WHERE id = $1;', [id]).then((result) => {
         const userRow = result && result.rows && result.rows[0];
+        console.log(userRow);
         const user = {
             id: userRow.id,
             username: userRow.username,

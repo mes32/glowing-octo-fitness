@@ -79,7 +79,7 @@ function EditUserDetailsPage(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.editUser
+    user: state.user
 });
 
 export default connect(mapStateToProps)(EditUserDetailsPage);

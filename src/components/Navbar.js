@@ -45,7 +45,7 @@ function NavbarComponent(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.UserAccount,
+    user: state.userAccount,
 });
 
 export default connect(mapStateToProps)(NavbarComponent);
