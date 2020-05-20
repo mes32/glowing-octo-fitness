@@ -19,22 +19,22 @@ CREATE TABLE app_user (
 );
 
 CREATE TABLE friend (
-    user_id INT REFERENCES app_user(id) ON DELETE CASCADE,
-    friend_id INT REFERENCES app_user(id) ON DELETE CASCADE,
+    user_id INT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
+    friend_id INT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
     date_created TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (user_id, friend_id)
 );
 
 CREATE TABLE friend_request (
     id SERIAL PRIMARY KEY,
-    from_user_id INT REFERENCES app_user(id) ON DELETE CASCADE,
-    to_user_id INT REFERENCES app_user(id) ON DELETE CASCADE,
+    from_user_id INT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
+    to_user_id INT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
     date_created TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE workout (
     id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES app_user(id) ON DELETE CASCADE,
+    user_id INT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
     date_created TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -61,7 +61,7 @@ INSERT INTO calisthenic_exercise_enum
 
 CREATE TABLE calisthenic_set (
     id SERIAL PRIMARY KEY,
-    workout_id INT REFERENCES workout(id) ON DELETE CASCADE,
+    workout_id INT NOT NULL REFERENCES workout(id) ON DELETE CASCADE,
     workout_order INT NOT NULL,
     CONSTRAINT positive_workout_order CHECK (workout_order > 0),
     calisthenic_exercise VARCHAR(6) REFERENCES calisthenic_exercise_enum(id),
@@ -70,14 +70,14 @@ CREATE TABLE calisthenic_set (
 
 CREATE TABLE calisthenic_reps (
     id SERIAL PRIMARY KEY,
-    set_id INT REFERENCES calisthenic_set(id) ON DELETE CASCADE,
+    set_id INT NOT NULL REFERENCES calisthenic_set(id) ON DELETE CASCADE,
     rep_count INT NOT NULL,
     CONSTRAINT nonnegative_rep_count CHECK (rep_count >= 0)
 );
 
 CREATE TABLE calisthenic_duration (
     id SERIAL PRIMARY KEY,
-    set_id INT REFERENCES calisthenic_set(id) ON DELETE CASCADE,
+    set_id INT NOT NULL REFERENCES calisthenic_set(id) ON DELETE CASCADE,
     duration_sec INT NOT NULL,
     CONSTRAINT nonnegative_rep_duration CHECK (duration_sec >= 0)
 );
