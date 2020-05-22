@@ -10,3 +10,17 @@
 .user-details-table td:first-child {
     font-weight: bold;
 }
+
+.create-workout-tab {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+
+   border-top: 20px solid #343a40;
+}
+
+.create-workout-tab .right {
+    float: right;
+    margin: 0.4rem 10px;
+}

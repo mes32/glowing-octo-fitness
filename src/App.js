@@ -14,6 +14,7 @@ import {
 import AdminRoute from './modules/AdminRoute';
 import ProtectedRoute from './modules/ProtectedRoute';
 
+import CreateWorkoutPage from './components/CreateWorkoutPage';
 import EditUserDetailsPage from './components/EditUserDetailsPage';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
@@ -69,6 +70,10 @@ function App(props) {
               <ProtectedRoute
                 exact path="/user/workouts"
                 component={UserWorkoutsPage}
+              />
+              <ProtectedRoute
+                exact path="/user/workouts/create"
+                component={CreateWorkoutPage}
               />
               <ProtectedRoute
                 exact path="/user/settings"
