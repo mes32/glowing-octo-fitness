@@ -20,7 +20,10 @@ export const ActionType = {
     SET_USER_ACCOUNT: 'SET_USER_ACCOUNT',
     UNSET_USER_ACCOUNT: 'UNSET_USER_ACCOUNT',
     UPDATE_USER_ACCOUNT: 'UPDATE_USER_ACCOUNT',
-    UPDATE_USER_ACCOUNT_PASSWORD: 'UPDATE_USER_ACCOUNT_PASSWORD'
+    UPDATE_USER_ACCOUNT_PASSWORD: 'UPDATE_USER_ACCOUNT_PASSWORD',
+
+    CLOSE_WORKOUT_TAB: 'CLOSE_WORKOUT_TAB',
+    OPEN_WORKOUT_TAB: 'OPEN_WORKOUT_TAB'
 };
 
 export const AlertAction = {
@@ -52,4 +55,9 @@ export const UserAccount = {
     unset: () => ({ type: ActionType.UNSET_USER_ACCOUNT }),
     update: (user) => ({ type: ActionType.UPDATE_USER_ACCOUNT, payload: user }),
     updatePassword: (user) => ({ type: ActionType.UPDATE_USER_ACCOUNT_PASSWORD, payload: user })
+};
+
+export const CreateWorkoutTab = {
+    close: () => ({ type: ActionType.CLOSE_WORKOUT_TAB }),
+    open: () => ({ type: ActionType.OPEN_WORKOUT_TAB })
 };

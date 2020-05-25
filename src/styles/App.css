@@ -16,11 +16,26 @@
    left: 0;
    bottom: 0;
    width: 100%;
-
-   border-top: 20px solid #343a40;
 }
 
-.create-workout-tab .right {
-    float: right;
-    margin: 0.4rem 10px;
+.create-workout-tab .nav-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.create-workout-tab .nav-buttons * {
+    margin: 0.4rem 10px 0.4rem 0;
+}
+
+.create-workout-tab-date {
+    background-color: #343a40;
+    color: rgb(227, 227, 227);
+    padding: 10px 0;
+}
+
+.create-workout-tab-date h3 {
+    text-align: center;
+    font-size: 1.2rem;
 }
