@@ -18,8 +18,10 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 // Configure Routes
+const exerciseRouter = require('./routes/exercise.router');
 const userRouter = require('./routes/user.router');
 
+server.use('/api/exercise', exerciseRouter);
 server.use('/api/user', userRouter);
 
 // Serve the static site files from build directory

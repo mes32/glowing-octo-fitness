@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import Collapse from 'react-bootstrap/Collapse';
 import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Form from 'react-bootstrap/Form';
 
-function CreateWorkoutTab({ isOpen }) {
+import { ExercisesAction } from '../redux/actionTypes';
+
+function CreateWorkoutTab({ exercises, isOpen, fetchExercises }) {
+    useEffect(() => {
+        fetchExercises();
+    }, [fetchExercises]);
+
+    const [selectedExercise, setExercise] = useState('');
+
     const history = useHistory();
+
     const navigateCreatePage = () => {
         history.push('/user/workouts/create');
     }
@@ -14,6 +26,8 @@ function CreateWorkoutTab({ isOpen }) {
     const navigateBack = () => {
         history.goBack();
     }
+
+
 
     return (
         <div className="create-workout-tab">
@@ -24,7 +38,20 @@ function CreateWorkoutTab({ isOpen }) {
             </div>
             <div className="create-workout-tab-controls">
                 <Collapse in={isOpen}>
-                    <p>In form</p>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>Exercise Name:</Form.Label>
+                            <DropdownButton
+                                title="(select exercise)"
+                                size="sm"
+                                variant="outline-primary"
+                            >
+                                {exercises.map(exercise => 
+                                    <Dropdown.Item key={exercise.id}>{exercise.name}</Dropdown.Item>
+                                )}
+                            </DropdownButton>
+                        </Form.Group>
+                    </Form>
                 </Collapse>
             </div>
             {isOpen ? 
@@ -42,7 +69,12 @@ function CreateWorkoutTab({ isOpen }) {
 }
 
 const mapStateToProps = state => ({
+    exercises: state.exercises,
     isOpen: state.workoutTabIsOpen
 });
 
-export default connect(mapStateToProps)(CreateWorkoutTab);
+const mapDispatchToProps = dispatch => ({
+    fetchExercises: () => dispatch(ExercisesAction.fetch())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkoutTab);

@@ -8,6 +8,10 @@ export const ActionType = {
     SET_ALL_USERS: 'SET_ALL_USERS',
     UNSET_ALL_USERS: 'UNSET_ALL_USERS',
 
+    FETCH_EXERCISES: 'FETCH_EXERCISES',
+    SET_EXERCISES: 'SET_EXERCISES',
+    UNSET_EXERCISES: 'UNSET_EXERCISES',
+
     FETCH_USER: 'FETCH_USER',
     RESET_USER_PASSWORD: 'RESET_USER_PASSWORD',
     SET_USER: 'SET_USER',
@@ -37,6 +41,12 @@ export const AllUsersAction = {
     fetch: () => ({ type: ActionType.FETCH_ALL_USERS }),
     set: (users) => ({ type: ActionType.SET_ALL_USERS, payload: users }),
     unset: () => ({ type: ActionType.UNSET_ALL_USERS })
+};
+
+export const ExercisesAction = {
+    fetch: () => ({ type: ActionType.FETCH_EXERCISES }),
+    set: (exercises) => ({ type: ActionType.SET_EXERCISES, payload: exercises }),
+    unset: () => ({ type: ActionType.UNSET_EXERCISES })
 };
 
 export const User = {

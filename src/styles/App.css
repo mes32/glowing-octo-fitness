@@ -18,15 +18,20 @@
    width: 100%;
 }
 
+.create-workout-tab-controls {
+    padding: 0 10px;
+}
+
 .create-workout-tab .nav-buttons {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-end;
+    padding: 0.4rem 10px;
 }
 
 .create-workout-tab .nav-buttons * {
-    margin: 0.4rem 10px 0.4rem 0;
+    margin-left: 10px;
 }
 
 .create-workout-tab-date {
