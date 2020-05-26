@@ -8,7 +8,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import { UserAccount } from '../redux/actionTypes';
 
-function NavbarComponent(props) {
+function NavbarComponent({ logout, user }) {
     const history = useHistory();
 
     const navigateTo = (url) => () => {
@@ -16,15 +16,15 @@ function NavbarComponent(props) {
     }
 
     const toggleAuthentication = () => {
-        if (props.user) {
-            props.dispatch(UserAccount.logout(history));
+        if (user) {
+            logout(history);
         } else {
             history.push('/login');
         }
     }
 
     const authenticationButtonText = () => {
-        return props.user ? 'Logout' : 'Login';
+        return user ? 'Logout' : 'Login';
     }
 
     return (
@@ -48,4 +48,8 @@ const mapStateToProps = state => ({
     user: state.userAccount,
 });
 
-export default connect(mapStateToProps)(NavbarComponent);
+const mapDispatchToProps = dispatch => ({
+    logout: (history) => dispatch(UserAccount.logout(history))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarComponent);

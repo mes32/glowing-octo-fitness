@@ -11,7 +11,7 @@ const DEFAULT_STATE = {
     password: ''
 };
 
-function RegisterPage(props) {
+function RegisterPage({ errorAlert, register }) {
     const [state, setState] = useState(DEFAULT_STATE);
 
     const registerUser = (event) => {
@@ -21,9 +21,9 @@ function RegisterPage(props) {
             password: state.password
         }
         if (state.username && state.password) {
-            props.dispatch(UserAccount.register(userCredentials));
+            register(userCredentials);
         } else {
-            props.dispatch(AlertAction.error('Please enter username and password'));
+            errorAlert('Please enter username and password');
         }
     }
 
@@ -37,7 +37,7 @@ function RegisterPage(props) {
     return (
         <div>
             <h1>Register User</h1>
-            <Alerts error={props.error} message={props.message} />
+            <Alerts />
             <Form onSubmit={registerUser}>
                 <Form.Group>
                     <Form.Label>Username:</Form.Label>
@@ -65,4 +65,9 @@ function RegisterPage(props) {
     );
 }
 
-export default connect()(RegisterPage);
+const mapDispatchToProps = dispatch => ({
+    errorAlert: (message) => dispatch(AlertAction.error(message)),
+    register: (credentials) => dispatch(UserAccount.register(credentials))
+});
+
+export default connect(null, mapDispatchToProps)(RegisterPage);

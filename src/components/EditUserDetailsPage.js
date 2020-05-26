@@ -11,12 +11,12 @@ import { User } from '../redux/actionTypes';
 const DATABASE_DATE_FORMAT = 'YYYY-MM-DDThh:mm:ss.zzzZ';
 const TABLE_DATE_FORMAT = 'YYYY-MM-DD';
 
-function EditUserDetailsPage(props) {
-    const dispatch = props.dispatch;
+function EditUserDetailsPage(props, { fetchUser, resetPassword, user }) {
     const id = props.match.params.id;
+
     useEffect(() => {
-        dispatch(User.fetch(id));
-    }, [dispatch, id]);
+        fetchUser();
+    }, [fetchUser, id]);
 
     const [newPassword, setNewPassword] = useState('');
 
@@ -27,12 +27,10 @@ function EditUserDetailsPage(props) {
     const submitPasswordReset = (event) => {
         event.preventDefault();
         if (newPassword) {
-            dispatch(User.resetPassword(id, newPassword));
+            resetPassword(id, newPassword);
             setNewPassword('');
         }
     }
-
-    const user = props.user;
 
     return (
         <div>
@@ -82,4 +80,9 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps)(EditUserDetailsPage);
+const mapDispatchToProps = dispatch => ({
+    fetchUser: (id) => dispatch(User.fetch(id)),
+    resetPassword: (id, newPassword) => dispatch(User.resetPassword(id, newPassword))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditUserDetailsPage);

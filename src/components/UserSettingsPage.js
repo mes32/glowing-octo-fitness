@@ -6,9 +6,9 @@ import Form from 'react-bootstrap/Form';
 import Alerts from './Alerts';
 import { AlertAction, UserAccount } from '../redux/actionTypes';
 
-function UserSettingsPage(props) {
+function UserSettingsPage({ clearAlerts, user, updatePassword, updateUser }) {
     const [userDetails, setUserDetails] = useState({
-        displayName: props.user.displayName,
+        displayName: user.displayName,
         password: '',
         newPassword: ''
     });
@@ -21,24 +21,24 @@ function UserSettingsPage(props) {
     }
 
     const displayName = () => {
-        if (props.user.displayName) {
-            return props.user.displayName;
+        if (user.displayName) {
+            return user.displayName;
         } else {
-            return props.user.username;
+            return user.username;
         }
     };
 
     const submitUpdate = (event) => {
         event.preventDefault();
         if (userDetails.password && userDetails.newPassword) {
-            props.dispatch(UserAccount.updatePassword(userDetails));
+            updatePassword(userDetails);
             setUserDetails({
                 ...userDetails,
                 password: '',
                 newPassword: ''
             });
         } else {
-            props.dispatch(UserAccount.update(userDetails));
+            updateUser(userDetails);
             setUserDetails({
                 ...userDetails,
                 password: '',
@@ -49,18 +49,18 @@ function UserSettingsPage(props) {
 
     const cancelUpdate = () => {
         setUserDetails({
-            displayName: props.user.displayName,
+            displayName: user.displayName,
             password: '',
             newPassword: ''
         });
-        props.dispatch(AlertAction.clearAll());
+        clearAlerts();
     };
 
     return (
         <div>
             <h1>Account Settings</h1>
             <h3>Welcome {displayName()}</h3>
-            <Alerts error={props.error} message={props.message} />
+            <Alerts />
             <Form onSubmit={submitUpdate}>
                 <Form.Group>
                     <Form.Label>Username:</Form.Label>
@@ -68,7 +68,7 @@ function UserSettingsPage(props) {
                         type="text"
                         placeholder="Username"
                         name="username"
-                        value={props.user.username}
+                        value={user.username}
                         disabled
                     />
                 </Form.Group>
@@ -113,4 +113,10 @@ const mapStateToProps = state => ({
     user: state.userAccount
 });
 
-export default connect(mapStateToProps)(UserSettingsPage);
+const mapDispatchToProps = dispatch => ({
+    clearAlerts: () => dispatch(AlertAction.clearAll()),
+    updatePassword: (userDetails) => dispatch(UserAccount.updatePassword(userDetails)),
+    updateUser: (userDetails) => dispatch(UserAccount.update(userDetails))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserSettingsPage);

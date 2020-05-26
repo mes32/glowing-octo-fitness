@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Alerts from './Alerts';
 import { UserAccount, AlertAction } from '../redux/actionTypes';
 
-function LoginPage(props) {
+function LoginPage({ dispatchLogin, errorAlert }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
@@ -15,11 +15,9 @@ function LoginPage(props) {
     const login = (event) => {
         event.preventDefault();
         if (username && password) {
-            props.dispatch(
-                UserAccount.login({ username, password, history })
-            );
+            dispatchLogin(username, password, history);
         } else {
-            props.dispatch(AlertAction.error('Please enter your username and password'));
+            errorAlert('Please enter your username and password');
         }
     }
 
@@ -34,7 +32,7 @@ function LoginPage(props) {
     return (
         <div>
             <h1>Login</h1>
-            <Alerts error={props.error} />
+            <Alerts />
             <Form>     
                 <Form.Group>
                     <Form.Label>Username:</Form.Label>
@@ -62,4 +60,9 @@ function LoginPage(props) {
     );
 }
 
-export default connect()(LoginPage);
+const mapDispatchToProps = dispatch => ({
+    dispatchLogin: (username, password, history) => dispatch(UserAccount.login({ username, password, history })),
+    errorAlert: (message) => dispatch(AlertAction.error(message))
+});
+
+export default connect(null, mapDispatchToProps)(LoginPage);

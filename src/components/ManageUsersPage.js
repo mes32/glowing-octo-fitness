@@ -10,13 +10,12 @@ import { AllUsersAction } from '../redux/actionTypes';
 const DATABASE_DATE_FORMAT = 'YYYY-MM-DDThh:mm:ss.zzzZ';
 const TABLE_DATE_FORMAT = 'YYYY-MM-DD';
 
-function UserSettingsPage(props) {
+function UserSettingsPage({ fetchUsers, users }) {
     const history = useHistory();
 
-    const dispatch = props.dispatch;
     useEffect(() => {
-        dispatch(AllUsersAction.fetch());
-    }, [dispatch]);
+        fetchUsers();
+    }, [fetchUsers]);
 
     const navigate = id => () => {
         history.push(`/admin/user/${id}/editDetails`);
@@ -36,7 +35,7 @@ function UserSettingsPage(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.users.map((user) =>
+                    {users.map((user) =>
                         <tr key={user.id}>
                             <td>{user.id}</td>
                             <td>{user.username}</td>
@@ -57,4 +56,8 @@ const mapStateToProps = state => ({
     users: state.allUsers
 });
 
-export default connect(mapStateToProps)(UserSettingsPage);
+const mapDispatchToProps = dispatch => ({
+    fetchUsers: () => dispatch(AllUsersAction.fetch())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserSettingsPage);
