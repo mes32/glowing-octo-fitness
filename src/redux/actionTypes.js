@@ -12,6 +12,9 @@ export const ActionType = {
     SET_EXERCISES: 'SET_EXERCISES',
     UNSET_EXERCISES: 'UNSET_EXERCISES',
 
+    SET_PREVIEW_WORKOUT: 'SET_PREVIEW_WORKOUT',
+    UNSET_PREVIEW_WORKOUT: 'UNSET_PREVIEW_WORKOUT',
+
     FETCH_USER: 'FETCH_USER',
     RESET_USER_PASSWORD: 'RESET_USER_PASSWORD',
     SET_USER: 'SET_USER',
@@ -47,6 +50,11 @@ export const ExercisesAction = {
     fetch: () => ({ type: ActionType.FETCH_EXERCISES }),
     set: (exercises) => ({ type: ActionType.SET_EXERCISES, payload: exercises }),
     unset: () => ({ type: ActionType.UNSET_EXERCISES })
+};
+
+export const PreviewWorkoutAction = {
+    set: (workout) => ({ type: ActionType.SET_PREVIEW_WORKOUT, payload: workout }),
+    unset: () => ({ type: ActionType.UNSET_PREVIEW_WORKOUT })
 };
 
 export const User = {
