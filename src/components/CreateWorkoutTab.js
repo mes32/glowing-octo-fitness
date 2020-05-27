@@ -15,7 +15,7 @@ function CreateWorkoutTab({ exercises, isOpen, fetchExercises }) {
         fetchExercises();
     }, [fetchExercises]);
 
-    const [selectedExercise, setExercise] = useState('');
+    const [selectedExercise, setExercise] = useState(undefined);
 
     const history = useHistory();
 
@@ -27,7 +27,16 @@ function CreateWorkoutTab({ exercises, isOpen, fetchExercises }) {
         history.goBack();
     }
 
+    const selectDropdown = (exercise) => () => {
+        setExercise(exercise);
+    }
 
+    const getSelectTitle = (exercise) => {
+        if (exercise && exercise.name) {
+            return exercise.name;
+        }
+        return '(select exercise)';
+    }
 
     return (
         <div className="create-workout-tab">
@@ -42,12 +51,12 @@ function CreateWorkoutTab({ exercises, isOpen, fetchExercises }) {
                         <Form.Group>
                             <Form.Label>Exercise Name:</Form.Label>
                             <DropdownButton
-                                title="(select exercise)"
+                                title={getSelectTitle(selectedExercise)}
                                 size="sm"
                                 variant="outline-primary"
                             >
                                 {exercises.map(exercise => 
-                                    <Dropdown.Item key={exercise.id}>{exercise.name}</Dropdown.Item>
+                                    <Dropdown.Item onClick={selectDropdown(exercise)} key={exercise.id}>{exercise.name}</Dropdown.Item>
                                 )}
                             </DropdownButton>
                         </Form.Group>
