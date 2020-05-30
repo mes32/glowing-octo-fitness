@@ -8,9 +8,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 
-import { ExercisesAction } from '../redux/actionTypes';
+import { ExercisesAction, PreviewWorkoutAction } from '../redux/actionTypes';
 
-function CreateWorkoutTab({ exercises, isOpen, fetchExercises }) {
+function CreateWorkoutTab({ appendExercise, exercises, isOpen, fetchExercises }) {
     useEffect(() => {
         fetchExercises();
     }, [fetchExercises]);
@@ -29,6 +29,7 @@ function CreateWorkoutTab({ exercises, isOpen, fetchExercises }) {
 
     const selectDropdown = (exercise) => () => {
         setExercise(exercise);
+        appendExercise(exercise);
     }
 
     const getSelectTitle = (exercise) => {
@@ -83,7 +84,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchExercises: () => dispatch(ExercisesAction.fetch())
+    fetchExercises: () => dispatch(ExercisesAction.fetch()),
+    appendExercise: (exercise) => dispatch(PreviewWorkoutAction.appendExercise(exercise))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkoutTab);

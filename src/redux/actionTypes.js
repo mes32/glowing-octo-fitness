@@ -12,6 +12,7 @@ export const ActionType = {
     SET_EXERCISES: 'SET_EXERCISES',
     UNSET_EXERCISES: 'UNSET_EXERCISES',
 
+    PREVIEW_WORKOUT_APPEND: 'PREVIEW_WORKOUT_APPEND',
     SET_PREVIEW_WORKOUT: 'SET_PREVIEW_WORKOUT',
     UNSET_PREVIEW_WORKOUT: 'UNSET_PREVIEW_WORKOUT',
 
@@ -53,6 +54,7 @@ export const ExercisesAction = {
 };
 
 export const PreviewWorkoutAction = {
+    appendExercise: (exercise) => ({ type: ActionType.PREVIEW_WORKOUT_APPEND, payload: exercise }),
     set: (workout) => ({ type: ActionType.SET_PREVIEW_WORKOUT, payload: workout }),
     unset: () => ({ type: ActionType.UNSET_PREVIEW_WORKOUT })
 };
