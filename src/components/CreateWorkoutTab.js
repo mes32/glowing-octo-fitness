@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 
 import { ExercisesAction, PreviewWorkoutAction } from '../redux/actionTypes';
 
-function CreateWorkoutTab({ appendExercise, exercises, isOpen, fetchExercises }) {
+function CreateWorkoutTab({ appendExercise, exercises, isOpen, fetchExercises, workout, incrementReps, decrementReps }) {
     useEffect(() => {
         fetchExercises();
     }, [fetchExercises]);
@@ -39,6 +39,16 @@ function CreateWorkoutTab({ appendExercise, exercises, isOpen, fetchExercises })
         return '(select exercise)';
     }
 
+    const decrement = (i, j) => {
+        console.log(i + ' ' + j);
+        decrementReps(i, j);
+    }
+
+    const increment = (i, j) => {
+        console.log(i + ' ' + j);
+        incrementReps(i, j);
+    }
+
     return (
         <div className="create-workout-tab">
             <div className="create-workout-tab-date">
@@ -48,6 +58,7 @@ function CreateWorkoutTab({ appendExercise, exercises, isOpen, fetchExercises })
             </div>
             <div className="create-workout-tab-controls">
                 <Collapse in={isOpen}>
+                    <>
                     <Form>
                         <Form.Group>
                             <Form.Label>Exercise Name:</Form.Label>
@@ -62,12 +73,30 @@ function CreateWorkoutTab({ appendExercise, exercises, isOpen, fetchExercises })
                             </DropdownButton>
                         </Form.Group>
                     </Form>
+                    <table>
+                        {workout.map((workoutBlock, i) =>
+                            <tbody key={i}>
+                                {workoutBlock.reps.map((rep, j) =>
+                                    <tr key={j}>
+                                        <td>{j === 0 && workoutBlock.exercise.name}</td>
+                                        <td>{'set ' + (j + 1)}</td>
+                                        <td>{rep + ' reps'}</td>
+                                        <td>
+                                            <Button onClick={() => decrement(i, j)} variant="secondary" size="sm">-</Button>
+                                            <Button onClick={() => increment(i, j)} variant="secondary" size="sm">+</Button>
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        )}
+                    </table>
+                    </>
                 </Collapse>
             </div>
             {isOpen ? 
                 <span className="nav-buttons">
                     <Button onClick={navigateBack}>&lt; Back</Button>
-                    <Button onClick={navigateBack} disabled={true}>Save Workout</Button>
+                    <Button onClick={navigateBack} disabled={workout.length === 0 || workout[0].reps[0] === 0}>Save Workout</Button>
                 </span>
                 :
                 <span className="nav-buttons">
@@ -80,12 +109,15 @@ function CreateWorkoutTab({ appendExercise, exercises, isOpen, fetchExercises })
 
 const mapStateToProps = state => ({
     exercises: state.exercises,
-    isOpen: state.workoutTabIsOpen
+    isOpen: state.workoutTabIsOpen,
+    workout: state.previewWorkout
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchExercises: () => dispatch(ExercisesAction.fetch()),
-    appendExercise: (exercise) => dispatch(PreviewWorkoutAction.appendExercise(exercise))
+    appendExercise: (exercise) => dispatch(PreviewWorkoutAction.appendExercise(exercise)),
+    incrementReps: (blockIndex, repsIndex) => dispatch(PreviewWorkoutAction.incrementReps(blockIndex, repsIndex)),
+    decrementReps: (blockIndex, repsIndex) => dispatch(PreviewWorkoutAction.decrementReps(blockIndex, repsIndex))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkoutTab);

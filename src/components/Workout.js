@@ -7,9 +7,13 @@ function Workout({ workout }) {
                 {workout.map((exerciseBlock, i) =>
                     <tr key={i}>
                         <td>{exerciseBlock.exercise.name}</td>
-                        {exerciseBlock.reps.map((rep, j) =>
-                            <td key={j}>{rep}</td>
-                        )}
+                        <td>{exerciseBlock.reps.length > 0 &&
+                            exerciseBlock.reps.length === 1 ?
+                            '1 set'
+                            :
+                            exerciseBlock.reps.length + ' sets'}</td>
+                        <td>{exerciseBlock.reps.join(', ')}</td>
+                        <td>{exerciseBlock.reps.reduce((sum, num) => sum + num) + ' total'}</td>
                     </tr>
                 )}
             </tbody>

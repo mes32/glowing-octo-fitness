@@ -13,6 +13,8 @@ export const ActionType = {
     UNSET_EXERCISES: 'UNSET_EXERCISES',
 
     PREVIEW_WORKOUT_APPEND: 'PREVIEW_WORKOUT_APPEND',
+    PREVIEW_WORKOUT_INC_REPS: 'PREVIEW_WORKOUT_INC_REPS',
+    PREVIEW_WORKOUT_DEC_REPS: 'PREVIEW_WORKOUT_DEC_REPS',
     SET_PREVIEW_WORKOUT: 'SET_PREVIEW_WORKOUT',
     UNSET_PREVIEW_WORKOUT: 'UNSET_PREVIEW_WORKOUT',
 
@@ -55,6 +57,8 @@ export const ExercisesAction = {
 
 export const PreviewWorkoutAction = {
     appendExercise: (exercise) => ({ type: ActionType.PREVIEW_WORKOUT_APPEND, payload: exercise }),
+    incrementReps: (blockIndex, repsIndex) => ({ type: ActionType.PREVIEW_WORKOUT_INC_REPS, payload: {blockIndex, repsIndex} }),
+    decrementReps: (blockIndex, repsIndex) => ({ type: ActionType.PREVIEW_WORKOUT_DEC_REPS, payload: { blockIndex, repsIndex } }),
     set: (workout) => ({ type: ActionType.SET_PREVIEW_WORKOUT, payload: workout }),
     unset: () => ({ type: ActionType.UNSET_PREVIEW_WORKOUT })
 };
