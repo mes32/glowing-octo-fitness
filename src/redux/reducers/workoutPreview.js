@@ -1,8 +1,8 @@
 import { ActionType } from '../actionTypes';
 
-const previewWorkoutReducer = (state = [], action) => {
+const workoutPreviewReducer = (state = [], action) => {
     switch (action.type) {
-        case ActionType.PREVIEW_WORKOUT_APPEND:
+        case ActionType.WORKOUT_PREVIEW_APPEND:
             const exercise = action.payload;
             if (state.length === 0) {
                 return [{ exercise: exercise, reps: [0] }];
@@ -15,7 +15,7 @@ const previewWorkoutReducer = (state = [], action) => {
             } else {
                 return state;
             }
-        case ActionType.PREVIEW_WORKOUT_INC_REPS:
+        case ActionType.WORKOUT_PREVIEW_INC_REPS:
             return state.map((exerciseBlock, i) => {
                 if (i === action.payload.blockIndex) {
                     return {
@@ -32,7 +32,7 @@ const previewWorkoutReducer = (state = [], action) => {
                     return exerciseBlock;
                 }
             });
-        case ActionType.PREVIEW_WORKOUT_DEC_REPS:
+        case ActionType.WORKOUT_PREVIEW_DEC_REPS:
             return state.map((exerciseBlock, i) => {
                 if (i === action.payload.blockIndex) {
                     return {
@@ -49,13 +49,13 @@ const previewWorkoutReducer = (state = [], action) => {
                     return exerciseBlock;
                 }
             });
-        case ActionType.SET_PREVIEW_WORKOUT:
+        case ActionType.SET_WORKOUT_PREVIEW:
             return action.payload;
-        case ActionType.UNSET_PREVIEW_WORKOUT:
+        case ActionType.UNSET_WORKOUT_PREVIEW:
             return [];
         default:
             return state;
     }
 };
 
-export default previewWorkoutReducer;
+export default workoutPreviewReducer;

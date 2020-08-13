@@ -12,11 +12,11 @@ export const ActionType = {
     SET_EXERCISES: 'SET_EXERCISES',
     UNSET_EXERCISES: 'UNSET_EXERCISES',
 
-    PREVIEW_WORKOUT_APPEND: 'PREVIEW_WORKOUT_APPEND',
-    PREVIEW_WORKOUT_INC_REPS: 'PREVIEW_WORKOUT_INC_REPS',
-    PREVIEW_WORKOUT_DEC_REPS: 'PREVIEW_WORKOUT_DEC_REPS',
-    SET_PREVIEW_WORKOUT: 'SET_PREVIEW_WORKOUT',
-    UNSET_PREVIEW_WORKOUT: 'UNSET_PREVIEW_WORKOUT',
+    WORKOUT_PREVIEW_APPEND: 'WORKOUT_PREVIEW_APPEND',
+    WORKOUT_PREVIEW_INC_REPS: 'WORKOUT_PREVIEW_INC_REPS',
+    WORKOUT_PREVIEW_DEC_REPS: 'WORKOUT_PREVIEW_DEC_REPS',
+    SET_WORKOUT_PREVIEW: 'SET_WORKOUT_PREVIEW',
+    UNSET_WORKOUT_PREVIEW: 'UNSET_WORKOUT_PREVIEW',
 
     FETCH_USER: 'FETCH_USER',
     RESET_USER_PASSWORD: 'RESET_USER_PASSWORD',
@@ -55,12 +55,12 @@ export const ExercisesAction = {
     unset: () => ({ type: ActionType.UNSET_EXERCISES })
 };
 
-export const PreviewWorkoutAction = {
-    appendExercise: (exercise) => ({ type: ActionType.PREVIEW_WORKOUT_APPEND, payload: exercise }),
-    incrementReps: (blockIndex, repsIndex) => ({ type: ActionType.PREVIEW_WORKOUT_INC_REPS, payload: {blockIndex, repsIndex} }),
-    decrementReps: (blockIndex, repsIndex) => ({ type: ActionType.PREVIEW_WORKOUT_DEC_REPS, payload: { blockIndex, repsIndex } }),
-    set: (workout) => ({ type: ActionType.SET_PREVIEW_WORKOUT, payload: workout }),
-    unset: () => ({ type: ActionType.UNSET_PREVIEW_WORKOUT })
+export const WorkoutPreviewAction = {
+    appendExercise: (exercise) => ({ type: ActionType.WORKOUT_PREVIEW_APPEND, payload: exercise }),
+    incrementReps: (blockIndex, repsIndex) => ({ type: ActionType.WORKOUT_PREVIEW_INC_REPS, payload: { blockIndex, repsIndex } }),
+    decrementReps: (blockIndex, repsIndex) => ({ type: ActionType.WORKOUT_PREVIEW_DEC_REPS, payload: { blockIndex, repsIndex } }),
+    set: (workout) => ({ type: ActionType.SET_WORKOUT_PREVIEW, payload: workout }),
+    unset: () => ({ type: ActionType.UNSET_WORKOUT_PREVIEW })
 };
 
 export const User = {

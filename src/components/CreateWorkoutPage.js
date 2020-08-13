@@ -20,7 +20,7 @@ function CreateWorkoutPage({ openTab, workout }) {
 }
 
 const mapStateToProps = state => ({
-    workout: state.previewWorkout
+    workout: state.workoutPreview
 })
 
 const mapDispatchToProps = dispatch => ({

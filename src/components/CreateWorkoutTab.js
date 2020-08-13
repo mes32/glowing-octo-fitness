@@ -8,7 +8,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 
-import { ExercisesAction, PreviewWorkoutAction } from '../redux/actionTypes';
+import { ExercisesAction, WorkoutPreviewAction } from '../redux/actionTypes';
 
 function CreateWorkoutTab({ appendExercise, exercises, isOpen, fetchExercises, workout, incrementReps, decrementReps }) {
     useEffect(() => {
@@ -110,14 +110,14 @@ function CreateWorkoutTab({ appendExercise, exercises, isOpen, fetchExercises, w
 const mapStateToProps = state => ({
     exercises: state.exercises,
     isOpen: state.workoutTabIsOpen,
-    workout: state.previewWorkout
+    workout: state.workoutPreview
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchExercises: () => dispatch(ExercisesAction.fetch()),
-    appendExercise: (exercise) => dispatch(PreviewWorkoutAction.appendExercise(exercise)),
-    incrementReps: (blockIndex, repsIndex) => dispatch(PreviewWorkoutAction.incrementReps(blockIndex, repsIndex)),
-    decrementReps: (blockIndex, repsIndex) => dispatch(PreviewWorkoutAction.decrementReps(blockIndex, repsIndex))
+    appendExercise: (exercise) => dispatch(WorkoutPreviewAction.appendExercise(exercise)),
+    incrementReps: (blockIndex, repsIndex) => dispatch(WorkoutPreviewAction.incrementReps(blockIndex, repsIndex)),
+    decrementReps: (blockIndex, repsIndex) => dispatch(WorkoutPreviewAction.decrementReps(blockIndex, repsIndex))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkoutTab);
